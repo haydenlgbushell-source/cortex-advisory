@@ -582,57 +582,88 @@
     #industries::before {
       content:''; position:absolute; inset:0;
       background-image:
-        linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
-      background-size:72px 72px;
+        linear-gradient(rgba(201,168,76,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.018) 1px, transparent 1px);
+      background-size:80px 80px;
       pointer-events:none;
       animation:grid-shift 30s linear infinite;
     }
     .industries-inner { max-width:1160px; margin:0 auto; position:relative; z-index:1; }
-    .industries-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; margin-top:3.5rem; }
+    .industries-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:3.5rem; }
 
     .industry-card {
-      background:rgba(8,15,26,0.65);
-      border:1px solid rgba(201,168,76,0.09);
-      padding:2.25rem;
-      display:flex; gap:1.5rem;
+      background:rgba(8,15,26,0.55);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:20px;
+      padding:2.5rem 2.5rem 2.25rem;
+      display:flex; flex-direction:column; gap:0;
       position:relative; overflow:hidden;
-      transition:border-color 0.35s, background 0.35s, transform 0.35s var(--ease-expo);
+      transition:border-color 0.4s ease, background 0.4s ease, transform 0.4s var(--ease-expo), box-shadow 0.4s ease;
       cursor:default; will-change:transform;
+      box-shadow:0 1px 2px rgba(0,0,0,0.2);
     }
-    .industry-card:hover { border-color:rgba(201,168,76,0.26); background:rgba(8,15,26,0.88); transform:translateY(-4px); }
+    .industry-card:hover {
+      border-color:rgba(201,168,76,0.22);
+      background:rgba(8,15,26,0.82);
+      transform:translateY(-6px);
+      box-shadow:0 24px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,168,76,0.12);
+    }
 
-    .industry-card-line { position:absolute; left:0; top:0; width:2px; height:0; background:var(--gold); transition:height 0.5s var(--ease-expo); }
-    .industry-card:hover .industry-card-line { height:100%; }
+    /* Gradient top border reveal */
+    .industry-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform 0.55s var(--ease-expo);
+      border-radius:20px 20px 0 0;
+    }
+    .industry-card:hover::before { transform:scaleX(1); }
 
-    /* Glow on hover */
+    /* Corner glow */
     .industry-card::after {
-      content:''; position:absolute; inset:0;
-      background:radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
-      opacity:0; transition:opacity 0.4s;
+      content:''; position:absolute; inset:0; border-radius:20px;
+      background:radial-gradient(ellipse at 15% 15%, rgba(201,168,76,0.07) 0%, transparent 60%);
+      opacity:0; transition:opacity 0.45s ease;
     }
     .industry-card:hover::after { opacity:1; }
 
-    .industry-icon-box {
-      width:54px; height:54px; flex-shrink:0;
-      border:1px solid rgba(201,168,76,0.18);
-      display:flex; align-items:center; justify-content:center; font-size:1.5rem;
-      transition:border-color 0.3s, background 0.3s, transform 0.35s var(--ease-back);
+    /* Icon area */
+    .industry-icon-wrap {
+      width:52px; height:52px; flex-shrink:0; margin-bottom:1.6rem;
+      background:rgba(201,168,76,0.07);
+      border:1px solid rgba(201,168,76,0.16);
+      border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.35s ease, border-color 0.35s ease, transform 0.4s var(--ease-back);
     }
-    .industry-card:hover .industry-icon-box { border-color:rgba(201,168,76,0.5); background:rgba(201,168,76,0.08); transform:scale(1.1) rotate(5deg); }
+    .industry-card:hover .industry-icon-wrap {
+      background:rgba(201,168,76,0.13);
+      border-color:rgba(201,168,76,0.42);
+      transform:scale(1.08);
+    }
+    .industry-icon-wrap svg {
+      width:24px; height:24px;
+      stroke:var(--gold); fill:none;
+      stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+      transition:stroke 0.3s ease;
+    }
 
-    .industry-name { font-size:1.02rem; font-weight:700; color:#fff; margin-bottom:0.5rem; font-family:'Playfair Display',Georgia,serif; }
-    .industry-desc { font-size:0.83rem; color:var(--slate); line-height:1.85; margin-bottom:1rem; }
-    .industry-tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
-    .industry-tag {
-      font-size:0.58rem; font-weight:700; letter-spacing:0.12em;
-      text-transform:uppercase; color:var(--gold);
-      border:1px solid rgba(201,168,76,0.28);
-      padding:0.2rem 0.55rem;
-      transition:background 0.25s, border-color 0.25s, transform 0.25s var(--ease-back);
+    .industry-name {
+      font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:0.55rem;
+      font-family:'Playfair Display',Georgia,serif; letter-spacing:-0.01em;
     }
-    .industry-card:hover .industry-tag { background:rgba(201,168,76,0.1); }
-    .industry-tag:hover { transform:translateY(-2px); }
+    .industry-desc { font-size:0.84rem; color:var(--slate); line-height:1.9; margin-bottom:1.25rem; flex:1; }
+    .industry-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:auto; }
+    .industry-tag {
+      font-size:0.58rem; font-weight:700; letter-spacing:0.1em;
+      text-transform:uppercase; color:rgba(201,168,76,0.8);
+      background:rgba(201,168,76,0.06);
+      border:1px solid rgba(201,168,76,0.2);
+      border-radius:100px;
+      padding:0.22rem 0.65rem;
+      transition:background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+    .industry-card:hover .industry-tag { background:rgba(201,168,76,0.12); border-color:rgba(201,168,76,0.36); color:var(--gold); }
 
     /* ── PROCESS ──────────────────────────────────────────────────────── */
     #how { background:var(--dark); }
@@ -1109,58 +1140,59 @@
       <p class="section-sub">We focus on four core Australian SMB sectors where intelligent automation delivers fast, measurable returns.</p>
     </div>
     <div class="industries-grid stagger" role="list">
+
       <article class="industry-card" role="listitem" tabindex="0">
-        <div class="industry-card-line" aria-hidden="true"></div>
-        <div class="industry-icon-box" aria-hidden="true">&#127960;</div>
-        <div>
-          <h3 class="industry-name">Real Estate</h3>
-          <p class="industry-desc">Cut listing prep time in half, automate client follow-up, and generate professional property copy in seconds &mdash; not hours.</p>
-          <div class="industry-tags">
-            <span class="industry-tag">Comms</span>
-            <span class="industry-tag">Listings</span>
-            <span class="industry-tag">CRM</span>
-          </div>
+        <div class="industry-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <h3 class="industry-name">Real Estate</h3>
+        <p class="industry-desc">Cut listing prep time in half, automate client follow-up, and generate professional property copy in seconds &mdash; not hours.</p>
+        <div class="industry-tags">
+          <span class="industry-tag">Comms</span>
+          <span class="industry-tag">Listings</span>
+          <span class="industry-tag">CRM</span>
         </div>
       </article>
+
       <article class="industry-card" role="listitem" tabindex="0">
-        <div class="industry-card-line" aria-hidden="true"></div>
-        <div class="industry-icon-box" aria-hidden="true">&#9878;</div>
-        <div>
-          <h3 class="industry-name">Law Firms</h3>
-          <p class="industry-desc">Streamline client intake, automate document drafting, and free your lawyers to focus on billable work &mdash; not busywork.</p>
-          <div class="industry-tags">
-            <span class="industry-tag">Docs</span>
-            <span class="industry-tag">Intake</span>
-            <span class="industry-tag">Drafting</span>
-          </div>
+        <div class="industry-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3 class="industry-name">Law Firms</h3>
+        <p class="industry-desc">Streamline client intake, automate document drafting, and free your lawyers to focus on billable work &mdash; not busywork.</p>
+        <div class="industry-tags">
+          <span class="industry-tag">Docs</span>
+          <span class="industry-tag">Intake</span>
+          <span class="industry-tag">Drafting</span>
         </div>
       </article>
+
       <article class="industry-card" role="listitem" tabindex="0">
-        <div class="industry-card-line" aria-hidden="true"></div>
-        <div class="industry-icon-box" aria-hidden="true">&#127869;</div>
-        <div>
-          <h3 class="industry-name">Restaurants &amp; Hospitality</h3>
-          <p class="industry-desc">Generate social content, respond to reviews with the right tone, and manage rostering comms &mdash; all without lifting a finger.</p>
-          <div class="industry-tags">
-            <span class="industry-tag">Social</span>
-            <span class="industry-tag">Reviews</span>
-            <span class="industry-tag">Ops</span>
-          </div>
+        <div class="industry-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>
+        </div>
+        <h3 class="industry-name">Restaurants &amp; Hospitality</h3>
+        <p class="industry-desc">Generate social content, respond to reviews with the right tone, and manage rostering comms &mdash; all without lifting a finger.</p>
+        <div class="industry-tags">
+          <span class="industry-tag">Social</span>
+          <span class="industry-tag">Reviews</span>
+          <span class="industry-tag">Ops</span>
         </div>
       </article>
+
       <article class="industry-card" role="listitem" tabindex="0">
-        <div class="industry-card-line" aria-hidden="true"></div>
-        <div class="industry-icon-box" aria-hidden="true">&#128230;</div>
-        <div>
-          <h3 class="industry-name">E-commerce</h3>
-          <p class="industry-desc">Scale product descriptions, automate customer service, and build email flows that convert &mdash; without hiring a bigger team.</p>
-          <div class="industry-tags">
-            <span class="industry-tag">Copy</span>
-            <span class="industry-tag">Email</span>
-            <span class="industry-tag">Support</span>
-          </div>
+        <div class="industry-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <h3 class="industry-name">E-commerce</h3>
+        <p class="industry-desc">Scale product descriptions, automate customer service, and build email flows that convert &mdash; without hiring a bigger team.</p>
+        <div class="industry-tags">
+          <span class="industry-tag">Copy</span>
+          <span class="industry-tag">Email</span>
+          <span class="industry-tag">Support</span>
         </div>
       </article>
+
     </div>
   </div>
 </section>
