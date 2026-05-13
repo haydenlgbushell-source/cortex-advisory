@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cortex Advisory — Think Smarter. Run Better.</title>
-  <meta name="description" content="Cortex Advisory helps Australian small businesses cut wasted time, sharpen decisions, and build real competitive advantage through smart automation and strategy." />
+  <title>Cortex Advisory — AI Strategy for Australian Business &amp; Sport</title>
+  <meta name="description" content="Cortex Advisory delivers AI strategy and automation across two verticals: Australian small and medium businesses, and sporting clubs &amp; high performance programs." />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet" />
   <style>
@@ -901,6 +901,107 @@
       .hero-stats-grid { grid-template-columns:repeat(3,1fr); }
     }
 
+    /* ── WORK STREAMS ─────────────────────────────────────────────────── */
+    #work-streams { background:var(--dark-mid); border-top:1px solid rgba(201,168,76,0.07); border-bottom:1px solid rgba(201,168,76,0.07); }
+    .streams-inner { max-width:1160px; margin:0 auto; }
+    .streams-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:3.5rem; }
+
+    .stream-card {
+      position:relative; overflow:hidden;
+      padding:3.5rem 3rem;
+      border:1px solid rgba(201,168,76,0.12);
+      transition:border-color 0.4s, transform 0.4s var(--ease-expo), box-shadow 0.4s;
+      cursor:default; will-change:transform;
+      display:flex; flex-direction:column;
+    }
+    .stream-card:hover {
+      border-color:rgba(201,168,76,0.28);
+      transform:translateY(-6px);
+      box-shadow:0 30px 70px rgba(0,0,0,0.4);
+    }
+    .stream-card.stream-smb { background:var(--navy); }
+    .stream-card.stream-sports { background:linear-gradient(135deg, var(--panel) 0%, #0A1E30 100%); }
+
+    .stream-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg, var(--gold), rgba(201,168,76,0.3));
+      transform:scaleX(0); transform-origin:left;
+      transition:transform 0.5s var(--ease-expo);
+    }
+    .stream-card:hover::before { transform:scaleX(1); }
+
+    .stream-num {
+      position:absolute; top:0; right:1.5rem;
+      font-size:9rem; font-weight:900; line-height:1;
+      color:rgba(201,168,76,0.04); pointer-events:none;
+      font-family:'Inter',sans-serif; user-select:none;
+      transition:color 0.4s;
+    }
+    .stream-card:hover .stream-num { color:rgba(201,168,76,0.07); }
+
+    .stream-badge {
+      font-size:0.6rem; font-weight:700; letter-spacing:0.24em;
+      text-transform:uppercase; display:inline-flex; align-items:center; gap:0.5rem;
+      color:var(--gold); margin-bottom:1.25rem;
+    }
+    .stream-badge::before { content:''; width:20px; height:1px; background:var(--gold); }
+
+    .stream-icon-wrap {
+      width:60px; height:60px; margin-bottom:1.75rem;
+      background:rgba(201,168,76,0.07);
+      border:1px solid rgba(201,168,76,0.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem;
+      transition:background 0.3s, border-color 0.3s, transform 0.4s var(--ease-back);
+    }
+    .stream-card:hover .stream-icon-wrap { background:rgba(201,168,76,0.13); border-color:rgba(201,168,76,0.4); transform:scale(1.08) rotate(-3deg); }
+
+    .stream-name {
+      font-size:clamp(1.6rem,2.5vw,2.2rem); font-weight:800;
+      color:#fff; line-height:1.15; letter-spacing:-0.02em;
+      margin-bottom:0.75rem;
+    }
+    .stream-desc {
+      font-size:0.9rem; color:var(--slate); line-height:2.1;
+      margin-bottom:2rem; flex:1;
+    }
+    .stream-features {
+      list-style:none; display:flex; flex-direction:column; gap:0.55rem;
+      margin-bottom:2.5rem;
+    }
+    .stream-features li {
+      font-size:0.82rem; color:var(--text);
+      display:flex; align-items:center; gap:0.7rem;
+      transition:color 0.2s, transform 0.2s;
+    }
+    .stream-features li:hover { color:#fff; transform:translateX(3px); }
+    .stream-features li::before { content:''; width:4px; height:4px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+
+    .stream-price-tag {
+      font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+      text-transform:uppercase; color:var(--gold);
+      border:1px solid rgba(201,168,76,0.28);
+      background:rgba(201,168,76,0.06);
+      display:inline-block; padding:0.45rem 1rem;
+      margin-bottom:1.5rem;
+      transition:background 0.25s, border-color 0.25s;
+    }
+    .stream-card:hover .stream-price-tag { background:rgba(201,168,76,0.12); border-color:rgba(201,168,76,0.4); }
+
+    .stream-cta {
+      display:inline-flex; align-items:center; gap:0.6rem;
+      font-size:0.7rem; font-weight:800; letter-spacing:0.14em;
+      text-transform:uppercase; text-decoration:none;
+      color:var(--dark); background:var(--gold);
+      padding:0.85rem 2rem; position:relative; overflow:hidden;
+      transition:transform 0.25s var(--ease-expo), box-shadow 0.25s;
+      align-self:flex-start;
+    }
+    .stream-cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(201,168,76,0.35); }
+    .stream-cta:hover .btn-shine { left:150%; }
+
+    @media (max-width:900px) { .streams-grid { grid-template-columns:1fr; } }
+
     /* ── ACCESSIBILITY ────────────────────────────────────────────────── */
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
     :focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
@@ -942,6 +1043,7 @@
     <span class="sub">Advisory</span>
   </a>
   <ul class="nav-links" role="list">
+    <li><a href="#work-streams">Work Streams</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#industries">Industries</a></li>
@@ -955,6 +1057,7 @@
 
 <!-- MOBILE MENU -->
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
+  <a href="#work-streams">Work Streams</a>
   <a href="#about">About</a>
   <a href="#services">Services</a>
   <a href="#industries">Industries</a>
@@ -971,7 +1074,7 @@
 
   <div class="hero-left">
     <div class="hero-eyebrow">
-      Australian SMB Consulting
+      AI Strategy Consulting &middot; Australia
       <span class="eyebrow-dot" aria-hidden="true"></span>
     </div>
     <h1 class="hero-title" id="hero-heading">
@@ -979,16 +1082,16 @@
       <span class="serif-accent">Run Better.</span>
     </h1>
     <p class="hero-sub">
-      Principal of Cortex Advisory. Helping Australian small businesses
-      cut wasted time, sharpen decisions, and build real competitive
-      advantage &mdash; without the tech degree.
+      Cortex Advisory delivers practical AI strategy and automation across two
+      verticals &mdash; Australian small businesses and high-performance
+      sporting organisations. Real results. Plain English.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">
+      <a href="#work-streams" class="btn-primary">
         <span class="btn-shine" aria-hidden="true"></span>
-        Work Together &rarr;
+        Explore Work Streams &rarr;
       </a>
-      <a href="#services" class="btn-secondary">View Services</a>
+      <a href="#contact" class="btn-secondary">Work Together</a>
     </div>
   </div>
 
@@ -997,8 +1100,8 @@
       <div class="hero-stats-label">At a Glance</div>
       <div class="hero-stats-grid" role="list">
         <div class="hero-stat" role="listitem">
-          <div class="hero-stat-num" data-count="4">4</div>
-          <div class="hero-stat-label">Industries<br/>Served</div>
+          <div class="hero-stat-num" data-count="2">2</div>
+          <div class="hero-stat-label">Work<br/>Streams</div>
         </div>
         <div class="hero-stat" role="listitem">
           <div class="hero-stat-num" data-count="3">3</div>
@@ -1013,9 +1116,62 @@
     <div class="hero-badge">
       <div class="badge-icon" aria-hidden="true">&#128260;</div>
       <div>
-        <div class="badge-title">Plain English. Real Results.</div>
-        <div class="badge-text">No jargon, no tech overwhelm &mdash; just smarter tools for Australian business owners.</div>
+        <div class="badge-title">Two Verticals. One Practice.</div>
+        <div class="badge-text">SMB automation and sports AI strategy &mdash; built for Australian organisations that need real results, not slide decks.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK STREAMS -->
+<section id="work-streams" aria-labelledby="streams-heading">
+  <div class="streams-inner">
+    <div class="reveal">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title" id="streams-heading">Two work streams.<br/><span class="serif-accent">One advisory practice.</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">Cortex Advisory operates across two distinct verticals &mdash; each with its own focus, its own client base, and its own entry points. Pick your stream.</p>
+    </div>
+    <div class="streams-grid stagger" role="list">
+
+      <article class="stream-card stream-smb" role="listitem" tabindex="0">
+        <div class="stream-num" aria-hidden="true">01</div>
+        <div class="stream-badge">Work Stream 01</div>
+        <div class="stream-icon-wrap" aria-hidden="true">&#127970;</div>
+        <h3 class="stream-name">Small &amp; Medium<br/>Businesses</h3>
+        <p class="stream-desc">Australian SMBs &mdash; from real estate to hospitality to e-commerce &mdash; buried in admin and repetitive tasks. We build practical AI tooling and automation that gives time back to operators and their teams.</p>
+        <ul class="stream-features" aria-label="SMB stream highlights">
+          <li>Real estate, law, hospitality, e-commerce</li>
+          <li>Automation of repetitive workflows and admin</li>
+          <li>Communications, reporting, document drafting</li>
+          <li>Project-based and ongoing retainer options</li>
+        </ul>
+        <div class="stream-price-tag">From $1,500 &middot; Project or Retainer</div>
+        <a href="#about" class="stream-cta">
+          <span class="btn-shine" aria-hidden="true"></span>
+          Explore SMB Services &rarr;
+        </a>
+      </article>
+
+      <article class="stream-card stream-sports" role="listitem" tabindex="0">
+        <div class="stream-num" aria-hidden="true">02</div>
+        <div class="stream-badge">Work Stream 02</div>
+        <div class="stream-icon-wrap" aria-hidden="true">&#127941;</div>
+        <h3 class="stream-name">Sporting Clubs &amp;<br/>High Performance</h3>
+        <p class="stream-desc">From Olympic programs and state institutes to community clubs across the Northern Beaches &mdash; we help sporting organisations cut admin, automate communications, and extract value from the data they&rsquo;re already collecting.</p>
+        <ul class="stream-features" aria-label="Sports stream highlights">
+          <li>National programs, state institutes, community clubs</li>
+          <li>Athlete reporting and performance documentation</li>
+          <li>Member comms, grant writing, social content</li>
+          <li>Coaching tools and AI readiness workshops</li>
+        </ul>
+        <div class="stream-price-tag">From $800 &middot; Quick-Win to Full Retainer</div>
+        <a href="cortex-advisory.html" class="stream-cta">
+          <span class="btn-shine" aria-hidden="true"></span>
+          Explore Sports Services &rarr;
+        </a>
+      </article>
+
     </div>
   </div>
 </section>
@@ -1037,10 +1193,10 @@
     </div>
     <div class="about-content reveal-right">
       <div class="section-tag">About Cortex Advisory</div>
-      <h2 class="section-title" id="about-heading">Your business,<br/><span class="serif-accent">working smarter</span></h2>
+      <h2 class="section-title" id="about-heading">The thinking partner<br/><span class="serif-accent">your organisation needs</span></h2>
       <div class="gold-rule"></div>
-      <p>Too many small business owners are buried in admin that should never touch their desk. Cortex Advisory exists to change that &mdash; by bringing the tools and workflows once reserved for big business into the hands of those who need them most.</p>
-      <p>We&rsquo;re not a software company. We&rsquo;re a consulting practice built around one goal: making your business measurably better to run. Plain English. Real results.</p>
+      <p>Whether you run a small business drowning in admin or a sporting organisation sitting on untapped data &mdash; the problem is the same. The tools exist, but no one has helped you use them. That&rsquo;s the gap Cortex Advisory fills.</p>
+      <p>We&rsquo;re not a software company. We&rsquo;re a consulting practice built around one goal: making your organisation measurably better to run. Plain English. Real results. Two verticals, one practice.</p>
       <ul class="value-list stagger" role="list">
         <li>Tailored to your industry and how you actually work</li>
         <li>Practical implementation, not just strategy slides</li>
@@ -1077,10 +1233,10 @@
 <section id="services" aria-labelledby="services-heading">
   <div class="services-inner">
     <div class="reveal">
-      <div class="section-tag">What We Offer</div>
+      <div class="section-tag">SMB Stream &middot; Engagement Models</div>
       <h2 class="section-title" id="services-heading">Three ways to<br/><span class="serif-accent">work with us</span></h2>
       <div class="gold-rule"></div>
-      <p class="section-sub">Whether you&rsquo;re testing the water or ready to transform how your business operates, there&rsquo;s an engagement built for you.</p>
+      <p class="section-sub">Whether you&rsquo;re testing the water or ready to transform how your business operates, there&rsquo;s an engagement built for you. Sports engagements follow a tailored model &mdash; <a href="cortex-advisory.html" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);">see the sports stream</a>.</p>
     </div>
     <div class="services-grid stagger" role="list">
       <article class="service-card js-tilt" role="listitem">
@@ -1134,10 +1290,10 @@
 <section id="industries" aria-labelledby="industries-heading">
   <div class="industries-inner">
     <div class="reveal">
-      <div class="section-tag">Who We Work With</div>
+      <div class="section-tag">SMB Stream &middot; Industries</div>
       <h2 class="section-title" id="industries-heading">Built for<br/><span class="serif-accent">your industry</span></h2>
       <div class="gold-rule"></div>
-      <p class="section-sub">We focus on four core Australian SMB sectors where intelligent automation delivers fast, measurable returns.</p>
+      <p class="section-sub">Within the SMB work stream, we focus on four core Australian sectors where intelligent automation delivers fast, measurable returns.</p>
     </div>
     <div class="industries-grid stagger" role="list">
 
@@ -1277,7 +1433,7 @@
       <div class="section-tag">Get In Touch</div>
       <h2 class="contact-title" id="contact-heading">Ready to work<br/><span class="serif-accent">smarter?</span></h2>
       <div class="gold-rule"></div>
-      <p class="contact-sub">Book a free 30-minute discovery call. No pitch, no pressure &mdash; just an honest conversation about what&rsquo;s possible for your business.</p>
+      <p class="contact-sub">Book a free 30-minute discovery call &mdash; whether you&rsquo;re an SMB owner or a sporting organisation. No pitch, no pressure, just an honest conversation about what&rsquo;s possible.</p>
       <a href="mailto:hello@cortexadvisory.com.au" class="btn-primary">
         <span class="btn-shine" aria-hidden="true"></span>
         Book a Discovery Call &rarr;
@@ -1317,12 +1473,20 @@
         <div class="form-group">
           <label class="form-label" for="industry">Industry</label>
           <select id="industry" name="industry">
-            <option value="" disabled selected>Select your industry&hellip;</option>
-            <option>Real Estate</option>
-            <option>Law Firm</option>
-            <option>Restaurant / Hospitality</option>
-            <option>E-commerce</option>
-            <option>Other</option>
+            <option value="" disabled selected>Select your work stream&hellip;</option>
+            <optgroup label="SMB Work Stream">
+              <option>Real Estate</option>
+              <option>Law Firm</option>
+              <option>Restaurant / Hospitality</option>
+              <option>E-commerce</option>
+              <option>Other SMB</option>
+            </optgroup>
+            <optgroup label="Sports &amp; High Performance">
+              <option>National / Elite Sports Program</option>
+              <option>State Institute / HP Centre</option>
+              <option>Community Sporting Club</option>
+              <option>Coaching Business / Academy</option>
+            </optgroup>
           </select>
         </div>
         <div class="form-group">
@@ -1347,7 +1511,7 @@
         <div class="wordmark">Cortex</div>
         <div class="sub">Advisory</div>
       </div>
-      <p class="footer-logo-desc">Helping Australian small businesses work smarter with practical automation and strategy.</p>
+      <p class="footer-logo-desc">AI strategy and automation for Australian SMBs and sporting organisations.</p>
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
       <div class="footer-nav-col">
@@ -1359,15 +1523,15 @@
         </ul>
       </div>
       <div class="footer-nav-col">
-        <div class="footer-nav-label">Services</div>
+        <div class="footer-nav-label">Work Streams</div>
         <ul role="list">
-          <li><a href="#services">Spark Project</a></li>
-          <li><a href="#services">Cortex Retainer</a></li>
-          <li><a href="#services">Full System Build</a></li>
+          <li><a href="#work-streams">SMB Advisory</a></li>
+          <li><a href="cortex-advisory.html">Sports &amp; High Performance</a></li>
+          <li><a href="#services">Engagement Models</a></li>
         </ul>
       </div>
       <div class="footer-nav-col">
-        <div class="footer-nav-label">Industries</div>
+        <div class="footer-nav-label">SMB Industries</div>
         <ul role="list">
           <li><a href="#industries">Real Estate</a></li>
           <li><a href="#industries">Law Firms</a></li>
