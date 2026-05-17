@@ -1002,6 +1002,201 @@
 
     @media (max-width:900px) { .streams-grid { grid-template-columns:1fr; } }
 
+    /* ── CASE STUDY ──────────────────────────────────────────────────── */
+    #case-study {
+      background: var(--navy);
+      position: relative; overflow: hidden;
+      border-top: 1px solid rgba(201,168,76,0.07);
+      border-bottom: 1px solid rgba(201,168,76,0.07);
+    }
+    #case-study::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cs-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* Client intro strip */
+    .cs-client-strip {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      padding: 1.5rem 2rem;
+      border: 1px solid rgba(201,168,76,0.12);
+      background: var(--panel);
+      margin: 2rem 0 3rem;
+    }
+    .cs-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .cs-meta-label {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .cs-meta-value { font-size: 0.82rem; color: var(--text); font-weight: 500; }
+
+    /* Sub-section headers */
+    .cs-section { margin-bottom: 3.5rem; }
+    .cs-section-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .cs-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 0.72rem; color: var(--gold); font-weight: 400;
+      letter-spacing: 0.08em; flex-shrink: 0; padding-top: 0.3rem;
+    }
+    .cs-section-title {
+      font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700;
+      color: #fff; line-height: 1.25; letter-spacing: -0.01em;
+    }
+    .cs-section-title em {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic; font-weight: 400; color: var(--gold);
+    }
+    .cs-intro {
+      font-size: 0.88rem; color: var(--slate); line-height: 2;
+      max-width: 680px; margin-bottom: 1.5rem;
+    }
+
+    /* Before / After blocks */
+    .cs-ba-block {
+      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .cs-ba-topic {
+      padding: 0.6rem 1.25rem;
+      background: var(--dark-mid);
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .cs-ba-cols { display: grid; grid-template-columns: 1fr 1fr; }
+    .cs-ba-col { padding: 1.25rem 1.5rem; }
+    .cs-ba-col + .cs-ba-col { border-left: 1px solid rgba(201,168,76,0.08); }
+    .cs-ba-head {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cs-ba-col.old .cs-ba-head { color: var(--muted); }
+    .cs-ba-col.new .cs-ba-head { color: var(--gold); }
+    .cs-ba-item {
+      display: flex; gap: 0.65rem; align-items: flex-start;
+      margin-bottom: 0.7rem; font-size: 0.82rem;
+      line-height: 1.6; color: var(--text);
+    }
+    .cs-ba-item:last-child { margin-bottom: 0; }
+    .cs-ba-icon {
+      width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0;
+      margin-top: 2px; display: flex; align-items: center;
+      justify-content: center; font-size: 8px; font-style: normal;
+    }
+    .cs-ba-col.old .cs-ba-icon { background: rgba(255,255,255,0.06); color: var(--muted); }
+    .cs-ba-col.new .cs-ba-icon { background: rgba(201,168,76,0.15); color: var(--gold); }
+
+    /* Pullquote */
+    .cs-pullquote {
+      border-left: 2px solid var(--gold);
+      padding: 1.1rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(201,168,76,0.04);
+    }
+    .cs-pullquote p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.05rem; font-style: italic;
+      color: rgba(255,255,255,0.7); line-height: 1.65;
+    }
+
+    /* Steps */
+    .cs-steps { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .cs-step {
+      display: flex; gap: 1.1rem; align-items: flex-start;
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 1.1rem 1.25rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .cs-step:hover { border-color: rgba(201,168,76,0.22); background: rgba(201,168,76,0.02); }
+    .cs-step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cs-step-body h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; color: #fff; }
+    .cs-step-body p { font-size: 0.8rem; color: var(--slate); line-height: 1.7; }
+    .cs-platforms { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.65rem; }
+    .cs-platform-pill {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em;
+      padding: 0.2rem 0.75rem; border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold); background: rgba(201,168,76,0.06);
+    }
+
+    /* Cards grid */
+    .cs-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .cs-card {
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s var(--ease-expo);
+    }
+    .cs-card:hover { border-color: rgba(201,168,76,0.22); transform: translateY(-3px); }
+    .cs-card-icon {
+      width: 34px; height: 34px;
+      background: rgba(201,168,76,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem; font-size: 1rem; color: var(--gold);
+    }
+    .cs-card h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: #fff; }
+    .cs-card p { font-size: 0.78rem; color: var(--slate); line-height: 1.75; }
+
+    /* Sub-heading inside section */
+    .cs-sub-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem; font-weight: 400; font-style: italic;
+      color: rgba(255,255,255,0.8); margin: 2.5rem 0 1.25rem;
+    }
+
+    /* Results bar */
+    .cs-results {
+      background: var(--dark-mid);
+      border: 1px solid rgba(201,168,76,0.14);
+      display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      margin-top: 2rem;
+    }
+    .cs-result-item { text-align: center; padding: 2.5rem 1.5rem; }
+    .cs-result-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--gold-light); line-height: 1;
+      display: block; margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .cs-result-label {
+      font-size: 0.7rem; color: var(--muted);
+      line-height: 1.55; font-weight: 500;
+    }
+    .cs-result-divider { background: rgba(201,168,76,0.1); align-self: stretch; }
+
+    /* Summary box */
+    .cs-summary {
+      border: 1px solid rgba(201,168,76,0.1);
+      background: var(--dark);
+      padding: 1.75rem 2rem;
+      margin-top: 0.75rem;
+    }
+    .cs-summary p {
+      font-size: 0.87rem; color: var(--slate); line-height: 2;
+    }
+
+    /* Case study responsive */
+    @media (max-width: 900px) {
+      .cs-ba-cols { grid-template-columns: 1fr; }
+      .cs-ba-col + .cs-ba-col { border-left: none; border-top: 1px solid rgba(201,168,76,0.08); }
+      .cs-cards { grid-template-columns: 1fr; }
+      .cs-results { grid-template-columns: 1fr; }
+      .cs-result-divider { display: none; }
+    }
+
     /* ── ACCESSIBILITY ────────────────────────────────────────────────── */
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border-width:0; }
     :focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
@@ -1048,6 +1243,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#industries">Industries</a></li>
     <li><a href="#how">Process</a></li>
+    <li><a href="#case-study">Case Study</a></li>
     <li><a href="#contact" class="nav-cta">Work Together</a></li>
   </ul>
   <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-menu">
@@ -1062,6 +1258,7 @@
   <a href="#services">Services</a>
   <a href="#industries">Industries</a>
   <a href="#how">Process</a>
+  <a href="#case-study">Case Study</a>
   <a href="#contact" class="mob-cta">Work Together</a>
 </nav>
 
@@ -1423,6 +1620,310 @@
       <div class="t-dot" role="tab" aria-selected="false" aria-label="Testimonial 2" tabindex="0" data-slide="1"></div>
       <div class="t-dot" role="tab" aria-selected="false" aria-label="Testimonial 3" tabindex="0" data-slide="2"></div>
     </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section id="case-study" aria-labelledby="case-study-heading">
+  <div class="cs-inner">
+
+    <div class="reveal">
+      <div class="section-tag">SMB Stream &middot; Case Study</div>
+      <h2 class="section-title" id="case-study-heading">MB Auto Collective<br/><span class="serif-accent">Before &amp; After</span></h2>
+      <div class="gold-rule"></div>
+      <p class="section-sub">A plain-English look at how a premium Sydney car dealership transformed its website, operations and online presence &mdash; and what that means for customers and the business.</p>
+    </div>
+
+    <div class="cs-client-strip reveal stagger">
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Business</span>
+        <span class="cs-meta-value">MB Auto Collective</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Location</span>
+        <span class="cs-meta-value">Waterloo, Sydney NSW</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Established</span>
+        <span class="cs-meta-value">2012</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Speciality</span>
+        <span class="cs-meta-value">Prestige pre-owned vehicles</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-label">Engagement</span>
+        <span class="cs-meta-value">Full Build</span>
+      </div>
+    </div>
+
+    <!-- 01 LOOK & FEEL -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">01</span>
+        <h3 class="cs-section-title">First impressions &mdash; <em>how the website looks</em></h3>
+      </div>
+      <p class="cs-intro">A website is your shopfront. For a premium dealership selling $50,000&ndash;$150,000 cars, the design needs to match the product. The old site didn&rsquo;t do that. The new one does.</p>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">What a customer sees when they first visit</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> Old website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Plain white background &mdash; looked like a free template anyone could download</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No sense of luxury or prestige &mdash; didn&rsquo;t match the calibre of cars being sold</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Generic headline: &ldquo;Buy | Sell | Drive&rdquo; &mdash; nothing memorable</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> New website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Dark, luxury design with gold accents &mdash; instantly signals &ldquo;this is a premium business&rdquo;</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Looks comparable to prestige dealerships 10&times; the size</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Opening line: &ldquo;Drive what others only dream about&rdquo; &mdash; sets the tone immediately</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-pullquote">
+        <p>Customers decide within seconds whether a business is worth their time. The new website earns that trust before a single word is read.</p>
+      </div>
+    </div>
+
+    <!-- 02 BUYING EXPERIENCE -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">02</span>
+        <h3 class="cs-section-title">Finding the right car &mdash; <em>the buying experience</em></h3>
+      </div>
+      <p class="cs-intro">Customers shopping for prestige cars do their research online first. The easier you make that process, the more likely they are to pick up the phone.</p>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">Browsing and searching the car stock</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> Old website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Basic list of cars &mdash; no way to filter or search</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Limited photos and details shown on each car</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No quick categories &mdash; had to scroll through everything</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> New website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Filter by make, price range and body style instantly</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Quick tabs: &ldquo;Under 20,000 km&rdquo;, &ldquo;Convertibles&rdquo;, &ldquo;Finance Ready&rdquo; and more</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Each car shows full details &mdash; km, colour, fuel type, transmission and 20+ photos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">What customers can do on the site</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> Old website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>View stock and contact &mdash; that was about it</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No finance information available</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No way to request a specific car that isn&rsquo;t in stock</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> New website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Get a valuation on your current car in under 2 minutes</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>&ldquo;Source a Car&rdquo; &mdash; Matt will search his network to find exactly what you want</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Finance page explains your options clearly before you even visit</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Book a viewing directly through the site &mdash; no phone tag required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 TRUST -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">03</span>
+        <h3 class="cs-section-title">Building trust &mdash; <em>why customers feel confident</em></h3>
+      </div>
+      <p class="cs-intro">Buying a car from a private dealer is a big decision. Customers need to feel confident before they pick up the phone. The old site gave them no reason to. The new site gives them plenty.</p>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">Social proof and credibility signals</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> Old website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No customer reviews shown anywhere on the site</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Nothing to reassure someone who has never heard of the business</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>No indication of how long the business has been operating</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> New website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>126 five-star Google reviews shown prominently on the homepage</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Real customer stories from buyers across Sydney, Melbourne, Brisbane and Perth</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>&ldquo;Est. 2012&rdquo; &mdash; over a decade of experience visible straight away</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-pullquote">
+        <p>&ldquo;Couldn&rsquo;t speak more highly of the service Matt offers. Knows the business inside out and stopped at nothing until we found the car we were after.&rdquo; &mdash; Edward Simpson, Sydney</p>
+      </div>
+    </div>
+
+    <!-- 04 GOOGLE -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">04</span>
+        <h3 class="cs-section-title">Being found on Google &mdash; <em>reaching new customers</em></h3>
+      </div>
+      <p class="cs-intro">Most car buyers start with a Google search. If MB Auto Collective doesn&rsquo;t appear in those results, the customer goes elsewhere. The new site is built to fix that.</p>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">What happens when someone searches online</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> Old website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Hard to find unless you already knew the business name</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Individual cars didn&rsquo;t appear in Google search results at all</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Page title just said &ldquo;MB Auto Collective&rdquo; &mdash; no keywords buyers actually search for</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> New website</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Each car has its own dedicated page that Google can find and display in results</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Site now shows for searches like &ldquo;prestige cars Sydney&rdquo; and &ldquo;used BMW Waterloo&rdquo;</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Price, kilometres and specs show directly in Google results &mdash; before a buyer even clicks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 AUTOMATION -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">05</span>
+        <h3 class="cs-section-title">Behind the scenes &mdash; <em>automation &amp; the admin dashboard</em></h3>
+      </div>
+      <p class="cs-intro">The new website isn&rsquo;t just what customers see &mdash; it&rsquo;s also a powerful tool for running the business. A private admin dashboard lets Matt manage everything in one place, with AI doing the heavy lifting.</p>
+
+      <div class="cs-ba-block">
+        <div class="cs-ba-topic">How social media posts used to work vs now</div>
+        <div class="cs-ba-cols">
+          <div class="cs-ba-col old">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10005;</i> The old way</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Take photos of the car, write a caption from scratch</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Log into Instagram, post manually &mdash; then log into Facebook, post again separately</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10005;</i>Repeat for every single car &mdash; 30 to 60 minutes of work per vehicle</div>
+          </div>
+          <div class="cs-ba-col new">
+            <div class="cs-ba-head"><i class="cs-ba-icon">&#10003;</i> The new way</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Add the car once in the dashboard &mdash; AI writes captions for every platform automatically</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Matt reviews and approves in one click &mdash; posts go out to all platforms at the best time of day</div>
+            <div class="cs-ba-item"><i class="cs-ba-icon">&#10003;</i>Under 5 minutes per vehicle &mdash; sold cars post automatically too</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-sub-heading">How it works, step by step</div>
+
+      <div class="cs-steps stagger">
+        <div class="cs-step">
+          <div class="cs-step-num">01</div>
+          <div class="cs-step-body">
+            <h4>Matt adds a new car to the dashboard</h4>
+            <p>He fills in the basics &mdash; make, model, year, price, kilometres, photos. No writing required at this stage.</p>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-num">02</div>
+          <div class="cs-step-body">
+            <h4>AI does the research and writing</h4>
+            <p>The system automatically looks up full specifications, checks what similar cars are selling for across Australia, and writes a professional listing description plus captions tailored for each social platform.</p>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-num">03</div>
+          <div class="cs-step-body">
+            <h4>Matt reviews and approves</h4>
+            <p>Everything lands in the dashboard for review. He can tweak the wording, adjust the price, or approve as-is. Nothing goes live without his say-so.</p>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-num">04</div>
+          <div class="cs-step-body">
+            <h4>Posts go out across all platforms automatically</h4>
+            <p>Once approved, the car goes live on the website and posts are sent at the optimal time to reach buyers.</p>
+            <div class="cs-platforms">
+              <span class="cs-platform-pill">Instagram</span>
+              <span class="cs-platform-pill">Facebook</span>
+              <span class="cs-platform-pill">TikTok</span>
+              <span class="cs-platform-pill">LinkedIn</span>
+            </div>
+          </div>
+        </div>
+        <div class="cs-step">
+          <div class="cs-step-num">05</div>
+          <div class="cs-step-body">
+            <h4>When a car sells &mdash; it handles that too</h4>
+            <p>Mark the car as sold in the dashboard and it disappears from the website instantly. A &ldquo;SOLD&rdquo; post goes out to social media automatically, keeping the audience engaged and showing the business is active.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-sub-heading">What else the dashboard manages</div>
+
+      <div class="cs-cards stagger">
+        <div class="cs-card">
+          <div class="cs-card-icon">&#9993;</div>
+          <h4>Customer enquiries</h4>
+          <p>Every contact form and valuation request submitted on the website comes straight into the dashboard &mdash; nothing gets lost in an inbox.</p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-card-icon">$</div>
+          <h4>Live pricing intelligence</h4>
+          <p>The system checks what similar cars are selling for across Australia so Matt can price competitively without hours of manual research.</p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-card-icon">&#9776;</div>
+          <h4>Sales briefings</h4>
+          <p>For each car, the AI prepares a one-page summary &mdash; key selling points, common buyer questions, and who is most likely to buy it.</p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-card-icon">&#9202;</div>
+          <h4>Viewing bookings</h4>
+          <p>Customers book viewings directly on the site. Those bookings appear in the dashboard so Matt always knows who is coming in and when.</p>
+        </div>
+      </div>
+
+      <div class="cs-pullquote" style="margin-top:2rem;">
+        <p>The system does the heavy lifting &mdash; writing, posting, researching prices &mdash; so Matt can spend that time with customers instead of behind a screen.</p>
+      </div>
+    </div>
+
+    <!-- 06 RESULTS -->
+    <div class="cs-section reveal">
+      <div class="cs-section-header">
+        <span class="cs-num">06</span>
+        <h3 class="cs-section-title">The bottom line &mdash; <em>what changed for the business</em></h3>
+      </div>
+      <p class="cs-intro">Every improvement was made with one goal in mind: give MB Auto Collective the digital presence and tools that match the quality of the cars it sells and the service it delivers.</p>
+
+      <div class="cs-results">
+        <div class="cs-result-item">
+          <span class="cs-result-num">5 min</span>
+          <span class="cs-result-label">to list a car and post<br/>to all social media<br/><span style="opacity:0.5;font-size:0.65rem;">(was 30&ndash;60 minutes)</span></span>
+        </div>
+        <div class="cs-result-divider"></div>
+        <div class="cs-result-item">
+          <span class="cs-result-num">126</span>
+          <span class="cs-result-label">five-star Google reviews<br/>now visible to every visitor</span>
+        </div>
+        <div class="cs-result-divider"></div>
+        <div class="cs-result-item">
+          <span class="cs-result-num">4+</span>
+          <span class="cs-result-label">platforms updated<br/>automatically per car</span>
+        </div>
+      </div>
+
+      <div class="cs-summary">
+        <p>The old website did the basics but didn&rsquo;t stand out. The new website looks the part, makes it easy for customers to find what they want, gives them more reasons to trust the business &mdash; and helps MB Auto Collective get found when people are searching Google for exactly what they sell. Behind the scenes, the automation means the business stays active online every day, without that activity costing hours of manual work.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
