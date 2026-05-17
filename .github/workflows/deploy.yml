@@ -7,9 +7,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: 04832ed4-759c-401f-b1ee-f4a2dedf76bd
     steps:
       - uses: actions/checkout@v4
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
       - name: Deploy to Netlify
-        run: |
-          npm install -g netlify-cli
-          netlify deploy --dir . --prod --site 04832ed4-759c-401f-b1ee-f4a2dedf76bd --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: netlify deploy --dir . --prod
