@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cortex Advisory — Design Concepts Vol. 3 · Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: #f5f5f5; color: #111; font-family: 'Inter', sans-serif; }
+
+/* ── INTRO ── */
+.intro {
+  padding: 5rem 6% 4rem;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.intro-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; }
+.intro h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #111; letter-spacing: -0.02em; }
+.intro p { color: #888; font-size: 1rem; max-width: 560px; line-height: 1.7; }
+.vol-note { font-size: 0.78rem; color: #ccc; }
+.concept-nav { display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
+.concept-nav a { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.5rem 1.25rem; border-radius: 2px; text-decoration: none; transition: all 0.2s; }
+.cn-7 { background: #1D1D1F; color: #fff; }
+.cn-7:hover { background: #3A3A3C; }
+.cn-8 { background: #5B7FA6; color: #fff; }
+.cn-8:hover { background: #4A6E95; }
+.cn-9 { background: #2563EB; color: #fff; }
+.cn-9:hover { background: #1D4ED8; }
+
+/* ── CONCEPT LABEL BAR ── */
+.concept { overflow: hidden; }
+.concept-label-bar {
+  padding: 2rem 6%; border-bottom: 1px solid;
+  display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap;
+}
+.concept-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.3; }
+.concept-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+.concept-inspo { font-size: 0.78rem; opacity: 0.4; letter-spacing: 0.03em; }
+
+
+/* ═══════════════════════════════════════════════════
+   CONCEPT 07 — PEARL
+   Pure white · Warm amber · Apple/Vercel light mode
+   Inspired by: Apple.com, Vercel light, Linear light
+═══════════════════════════════════════════════════ */
+
+.c7 { background: #fff; }
+.c7 .concept-label-bar { border-color: #f0f0f0; color: #111; }
+
+.c7-hero {
+  min-height: 92vh;
+  padding: 8rem 6% 6rem;
+  background: #fff;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.c7-blur-1 {
+  position: absolute; top: -80px; right: 10%;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(217,119,6,0.07) 0%, transparent 65%);
+  pointer-events: none; filter: blur(40px);
+}
+.c7-blur-2 {
+  position: absolute; bottom: -80px; left: -5%;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 65%);
+  pointer-events: none; filter: blur(40px);
+}
+.c7-content { position: relative; max-width: 880px; }
+
+.c7-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #F5F5F7;
+  border: 1px solid #E5E5E7;
+  border-radius: 99px;
+  padding: 0.35rem 1rem 0.35rem 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-weight: 500;
+  color: #1D1D1F;
+  margin-bottom: 2.75rem;
+}
+.c7-badge-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #D97706;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; color: #fff;
+}
+.c7-badge-arrow { color: #aaa; font-size: 0.7rem; margin-left: 0.25rem; }
+
+.c7-h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 6.5vw, 5.75rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #1D1D1F;
+  margin-bottom: 1.75rem;
+}
+.c7-h1 .amber { color: #D97706; }
+.c7-h1 .light { color: #C0C0C5; }
+
+.c7-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem; font-weight: 400;
+  color: #86868B; max-width: 560px;
+  line-height: 1.75; margin-bottom: 3rem;
+}
+.c7-sub strong { color: #1D1D1F; font-weight: 600; }
+
+.c7-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+.c7-btn-p {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #1D1D1F; color: #fff;
+  padding: 0.85rem 1.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  text-decoration: none; border-radius: 8px;
+  transition: background 0.2s;
+}
+.c7-btn-p:hover { background: #3A3A3C; }
+.c7-btn-s {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #F5F5F7;
+  border: 1px solid #E5E5E7;
+  color: #1D1D1F;
+  padding: 0.85rem 1.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 400;
+  text-decoration: none; border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.c7-btn-s:hover { background: #EBEBED; border-color: #D0D0D5; }
+
+/* C7 feature tiles — Apple grid */
+.c7-tiles {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.c7-tile {
+  background: #F5F5F7;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: background 0.2s;
+}
+.c7-tile:hover { background: #EBEBED; }
+.c7-tile-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+.c7-tile h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600; color: #1D1D1F; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.c7-tile p { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #86868B; line-height: 1.65; font-weight: 400; }
+
+/* C7 palette + type */
+.c7-meta { padding: 4rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; background: #F5F5F7; border-top: 1px solid #E5E5E7; }
+.c7 .meta-label { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #aaa; margin-bottom: 1.25rem; }
+.c7-swatches { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.c7-swatch { width: 44px; height: 44px; border-radius: 8px; }
+.c7-ts-h { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: #1D1D1F; }
+.c7-ts-body { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: #86868B; line-height: 1.75; font-weight: 400; margin-top: 0.75rem; }
+.c7-ts-note { font-family: 'Inter', sans-serif; font-size: 0.62rem; color: #C0C0C5; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.6rem; }
+
+
+/* ═══════════════════════════════════════════════════
+   CONCEPT 08 — MIST
+   Warm parchment · Slate blue · Cormorant editorial
+   Inspired by: McKinsey, high-end consultancy, Kinfolk magazine
+═══════════════════════════════════════════════════ */
+
+.c8 { background: #F3EFE8; }
+.c8 .concept-label-bar { border-color: #E2DDD5; color: #2C2522; }
+.c8 .concept-num, .c8 .concept-inspo { color: #2C2522; }
+
+.c8-hero {
+  min-height: 92vh;
+  padding: 8rem 6% 6rem;
+  background: #F3EFE8;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.c8-watermark {
+  position: absolute; right: 4%; bottom: 8%;
+  font-family: 'Cormorant Garant', serif;
+  font-size: 18rem; font-weight: 300;
+  color: rgba(44,37,34,0.04);
+  line-height: 1; letter-spacing: -0.05em;
+  pointer-events: none; user-select: none;
+}
+.c8-content { position: relative; max-width: 860px; }
+
+.c8-eyebrow {
+  display: flex; align-items: center; gap: 1.25rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #A89880; margin-bottom: 3rem;
+}
+.c8-line { width: 40px; height: 1px; background: #C8BFB0; }
+.c8-dot { width: 4px; height: 4px; border-radius: 50%; background: #5B7FA6; }
+
+.c8-h1 {
+  font-family: 'Cormorant Garant', Georgia, serif;
+  font-size: clamp(3.5rem, 7.5vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: #2C2522;
+  margin-bottom: 2.25rem;
+}
+.c8-h1 em { font-style: italic; font-weight: 300; color: #5B7FA6; }
+
+.c8-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem; font-weight: 400;
+  color: #8A7D72; max-width: 520px;
+  line-height: 1.9; margin-bottom: 3.5rem;
+}
+.c8-sub strong { color: #2C2522; font-weight: 600; }
+
+.c8-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.c8-btn-p {
+  display: inline-block;
+  background: #2C2522; color: #F3EFE8;
+  padding: 1rem 2.25rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.c8-btn-p:hover { background: #5B7FA6; }
+.c8-btn-s {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: #8A7D72;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; font-weight: 400;
+  text-decoration: none;
+  border-bottom: 1px solid #C8BFB0;
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.c8-btn-s:hover { color: #5B7FA6; border-color: #5B7FA6; }
+
+/* C8 credentials strip */
+.c8-strip {
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #C8BFB0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.c8-strip-item { }
+.c8-strip-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #B5A898; margin-bottom: 0.5rem; }
+.c8-strip-val {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.4rem; font-style: italic;
+  font-weight: 300; color: #2C2522; line-height: 1.2;
+}
+
+/* C8 two-column editorial */
+.c8-editorial {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #C8BFB0;
+}
+.c8-col { padding: 4rem 6%; }
+.c8-col + .c8-col { border-left: 1px solid #C8BFB0; background: #EDE8DF; }
+.c8-col-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5B7FA6; margin-bottom: 1.25rem; font-weight: 500; }
+.c8-col h3 { font-family: 'Cormorant Garant', serif; font-size: 1.6rem; font-style: italic; font-weight: 300; color: #2C2522; margin-bottom: 1rem; line-height: 1.2; }
+.c8-col p { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: #8A7D72; line-height: 1.85; font-weight: 400; margin-bottom: 1.5rem; }
+.c8-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.c8-list li { font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: #5A4F48; line-height: 1.5; padding-left: 1.25rem; position: relative; }
+.c8-list li::before { content: '—'; position: absolute; left: 0; color: #5B7FA6; }
+
+/* C8 palette + type */
+.c8-meta { padding: 4rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; background: #EDE8DF; border-top: 1px solid #C8BFB0; }
+.c8 .meta-label { font-family: 'Outfit', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #B5A898; margin-bottom: 1.25rem; }
+.c8-swatches { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.c8-swatch { width: 44px; height: 44px; border-radius: 2px; }
+.c8-ts-h { font-family: 'Cormorant Garant', serif; font-size: 2.2rem; font-style: italic; font-weight: 300; color: #2C2522; }
+.c8-ts-body { font-family: 'Outfit', sans-serif; font-size: 0.88rem; color: #8A7D72; line-height: 1.8; font-weight: 400; margin-top: 0.75rem; }
+.c8-ts-note { font-family: 'Outfit', sans-serif; font-size: 0.62rem; color: #B5A898; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.6rem; }
+
+
+/* ═══════════════════════════════════════════════════
+   CONCEPT 09 — NORDIC
+   Cool light · Navy + Blue · Stripe/Notion energy
+   Inspired by: Stripe, Notion, Intercom — clean, trustworthy, cool
+═══════════════════════════════════════════════════ */
+
+.c9 { background: #F0F5FF; }
+.c9 .concept-label-bar { border-color: #DDE5F5; color: #0F1629; }
+.c9 .concept-num, .c9 .concept-inspo { color: #0F1629; }
+
+.c9-hero {
+  min-height: 92vh;
+  padding: 8rem 6% 6rem;
+  background: #F0F5FF;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.c9-blob-1 {
+  position: absolute; top: -10%; right: 0%;
+  width: 600px; height: 500px;
+  background: radial-gradient(ellipse at top right, rgba(37,99,235,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+.c9-blob-2 {
+  position: absolute; bottom: -10%; left: -5%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.c9-lines {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px);
+  background-size: 100% 64px;
+  pointer-events: none;
+}
+
+.c9-content { position: relative; max-width: 860px; }
+.c9-tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-weight: 500;
+  color: #2563EB;
+  letter-spacing: 0.04em;
+  margin-bottom: 2.5rem;
+}
+.c9-tag-pill {
+  background: rgba(37,99,235,0.1);
+  color: #2563EB;
+  padding: 0.2rem 0.75rem;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.c9-h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  color: #0F1629;
+  margin-bottom: 1.75rem;
+}
+.c9-h1 .blue { color: #2563EB; }
+
+.c9-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem; font-weight: 400;
+  color: #64748B; max-width: 540px;
+  line-height: 1.75; margin-bottom: 3rem;
+}
+.c9-sub strong { color: #0F1629; font-weight: 600; }
+
+.c9-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.c9-btn-p {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #2563EB; color: #fff;
+  padding: 0.9rem 1.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 600;
+  text-decoration: none; border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 0 0 1px rgba(37,99,235,0.15);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.c9-btn-p:hover { background: #1D4ED8; box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+.c9-btn-s {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: #fff;
+  border: 1px solid #DDE5F5;
+  color: #0F1629;
+  padding: 0.9rem 1.75rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  text-decoration: none; border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(15,22,41,0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.c9-btn-s:hover { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+/* C9 proof strip */
+.c9-proof {
+  margin-top: 5rem;
+  background: #fff;
+  border: 1px solid #DDE5F5;
+  border-radius: 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  overflow: hidden;
+  max-width: 640px;
+  box-shadow: 0 1px 3px rgba(15,22,41,0.06);
+}
+.c9-proof-cell { padding: 1.75rem 2rem; border-right: 1px solid #DDE5F5; }
+.c9-proof-cell:last-child { border-right: none; }
+.c9-proof-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.75rem; font-weight: 800;
+  color: #0F1629; letter-spacing: -0.03em;
+  margin-bottom: 0.2rem;
+}
+.c9-proof-num .blue { color: #2563EB; }
+.c9-proof-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #94A3B8; line-height: 1.45; }
+
+/* C9 cards */
+.c9-cards {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.25rem;
+  padding: 4rem 6%;
+  background: #F0F5FF;
+  border-top: 1px solid #DDE5F5;
+}
+.c9-card {
+  background: #fff;
+  border: 1px solid #DDE5F5;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(15,22,41,0.05);
+  transition: box-shadow 0.25s, border-color 0.25s;
+}
+.c9-card:hover { box-shadow: 0 6px 20px rgba(15,22,41,0.1); border-color: #A5C0F5; }
+.c9-card-num { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; color: #CBD5E1; margin-bottom: 1.25rem; }
+.c9-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #0F1629; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.c9-card p { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #64748B; line-height: 1.7; font-weight: 400; }
+.c9-card-link { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: #2563EB; margin-top: 1.25rem; text-decoration: none; transition: gap 0.2s; }
+.c9-card-link:hover { gap: 0.5rem; }
+
+/* C9 palette + type */
+.c9-meta { padding: 4rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; background: #fff; border-top: 1px solid #DDE5F5; }
+.c9 .meta-label { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #CBD5E1; margin-bottom: 1.25rem; }
+.c9-swatches { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.c9-swatch { width: 44px; height: 44px; border-radius: 6px; }
+.c9-ts-h { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: #0F1629; }
+.c9-ts-body { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: #64748B; line-height: 1.75; font-weight: 400; margin-top: 0.75rem; }
+.c9-ts-note { font-family: 'Inter', sans-serif; font-size: 0.62rem; color: #CBD5E1; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.6rem; }
+
+/* ── FOOTER ── */
+.concepts-footer {
+  padding: 3rem 6%; background: #0F1629;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.concepts-footer p { font-size: 0.78rem; color: #334155; font-family: 'Inter', sans-serif; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .c7-meta, .c8-meta, .c9-meta { grid-template-columns: 1fr; }
+  .c7-tiles, .c9-cards { grid-template-columns: 1fr; }
+  .c8-editorial { grid-template-columns: 1fr; }
+  .c8-editorial .c8-col + .c8-col { border-left: none; border-top: 1px solid #C8BFB0; }
+  .c8-strip { grid-template-columns: 1fr 1fr; }
+  .c9-proof { grid-template-columns: 1fr; }
+  .c9-proof-cell { border-right: none; border-bottom: 1px solid #DDE5F5; }
+  .c9-proof-cell:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .c7-h1, .c9-h1 { font-size: 2.6rem; }
+  .c8-h1 { font-size: 3rem; }
+  .c7-tiles { grid-template-columns: 1fr; }
+  .c8-strip { grid-template-columns: 1fr; }
+  .c8-watermark { font-size: 8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-tag">Cortex Advisory · Design Exploration</div>
+  <h1>Three light-mode concepts.</h1>
+  <p>A lighter round — warm white, warm parchment, and cool blue. Each sits at a different point between approachable and premium.</p>
+  <p class="vol-note">Vol. 3 of 3 &nbsp;·&nbsp; Concepts 07–09</p>
+  <div class="concept-nav">
+    <a href="#c7" class="cn-7">07 — Pearl</a>
+    <a href="#c8" class="cn-8">08 — Mist</a>
+    <a href="#c9" class="cn-9">09 — Nordic</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 07 — PEARL
+     Pure white · Warm amber · Space Grotesk + Inter
+     Apple · Vercel light · Linear light
+═══════════════════════════════════════ -->
+<div class="concept c7" id="c7">
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 07</span>
+    <span class="concept-name">Pearl</span>
+    <span class="concept-inspo">Inspired by: Apple.com, Vercel light mode, Linear light — clean, minimal, white space</span>
+  </div>
+
+  <div class="c7-hero">
+    <div class="c7-blur-1"></div>
+    <div class="c7-blur-2"></div>
+    <div class="c7-content">
+      <div class="c7-badge">
+        <div class="c7-badge-dot">★</div>
+        AI Advisory · Australia
+        <span class="c7-badge-arrow">→</span>
+      </div>
+      <h1 class="c7-h1">
+        Stop doing it<br>the <span class="amber">hard</span> <span class="light">way.</span>
+      </h1>
+      <p class="c7-sub">
+        If you're spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter. No jargon. Just results.
+      </p>
+      <div class="c7-btns">
+        <a href="#" class="c7-btn-p">Book a Free Call →</a>
+        <a href="#" class="c7-btn-s">See Who We Help</a>
+      </div>
+      <div class="c7-tiles">
+        <div class="c7-tile">
+          <span class="c7-tile-icon">⚡</span>
+          <h3>Quick Win</h3>
+          <p>One problem scoped, built, and handed over in 2–4 weeks. Tangible from day one.</p>
+        </div>
+        <div class="c7-tile">
+          <span class="c7-tile-icon">🔄</span>
+          <h3>Ongoing Partner</h3>
+          <p>Your embedded AI thinking partner monthly. Cancel anytime — no lock-in.</p>
+        </div>
+        <div class="c7-tile">
+          <span class="c7-tile-icon">🏗</span>
+          <h3>Full Build</h3>
+          <p>End-to-end. We map your operation and build the full system underneath it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c7-meta">
+    <div>
+      <div class="meta-label">Colour Palette</div>
+      <div class="c7-swatches">
+        <div class="c7-swatch" style="background:#FFFFFF;border:1px solid #E5E5E7"></div>
+        <div class="c7-swatch" style="background:#F5F5F7;border:1px solid #E5E5E7"></div>
+        <div class="c7-swatch" style="background:#EBEBED"></div>
+        <div class="c7-swatch" style="background:#C0C0C5"></div>
+        <div class="c7-swatch" style="background:#86868B"></div>
+        <div class="c7-swatch" style="background:#1D1D1F"></div>
+        <div class="c7-swatch" style="background:#D97706"></div>
+        <div class="c7-swatch" style="background:#F59E0B"></div>
+      </div>
+      <div class="meta-label">Accent</div>
+      <div style="height:3px;width:160px;background:linear-gradient(90deg,#D97706,#F59E0B);border-radius:2px;margin-top:0.5rem;"></div>
+      <div style="font-size:0.7rem;color:#C0C0C5;margin-top:0.5rem;font-family:'Inter',sans-serif;">Warm Amber — used sparingly as punctuation</div>
+    </div>
+    <div>
+      <div class="meta-label">Typography</div>
+      <div class="c7-ts-h">Space Grotesk</div>
+      <div class="c7-ts-note">Headings — 800 weight · −0.04em · tight</div>
+      <div class="c7-ts-body">Inter — The standard for clean digital interfaces. 400 weight body, 600 for emphasis. Maximum legibility, zero distraction.</div>
+      <div class="c7-ts-note">Body — Inter 400/600 · 1.75 leading</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 08 — MIST
+     Warm parchment · Slate blue · Cormorant Garant
+     McKinsey · Kinfolk · high-end consultancy
+═══════════════════════════════════════ -->
+<div class="concept c8" id="c8">
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 08</span>
+    <span class="concept-name">Mist</span>
+    <span class="concept-inspo">Inspired by: McKinsey, Kinfolk magazine, high-end consultancy — understated, editorial, warm</span>
+  </div>
+
+  <div class="c8-hero">
+    <div class="c8-watermark">CA</div>
+    <div class="c8-content">
+      <div class="c8-eyebrow">
+        <div class="c8-line"></div>
+        <div class="c8-dot"></div>
+        AI Advisory &nbsp;·&nbsp; Australia
+      </div>
+      <h1 class="c8-h1">
+        Stop doing it<br>the <em>hard way.</em>
+      </h1>
+      <p class="c8-sub">
+        If you're spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter.
+      </p>
+      <div class="c8-btns">
+        <a href="#" class="c8-btn-p">Book a Free Call</a>
+        <a href="#" class="c8-btn-s">See Who We Help →</a>
+      </div>
+      <div class="c8-strip">
+        <div class="c8-strip-item">
+          <div class="c8-strip-label">Engagement</div>
+          <div class="c8-strip-val">Quick Win</div>
+        </div>
+        <div class="c8-strip-item">
+          <div class="c8-strip-label">Model</div>
+          <div class="c8-strip-val">Monthly</div>
+        </div>
+        <div class="c8-strip-item">
+          <div class="c8-strip-label">Scale</div>
+          <div class="c8-strip-val">Full Build</div>
+        </div>
+        <div class="c8-strip-item">
+          <div class="c8-strip-label">Based</div>
+          <div class="c8-strip-val">Australia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c8-editorial">
+    <div class="c8-col">
+      <div class="c8-col-label">Small &amp; Medium Business</div>
+      <h3>Running a business is hard enough without doing it manually.</h3>
+      <p>Too much of your day is eaten up by repetitive tasks and admin that should handle itself. We build practical AI tools that give you that time back.</p>
+      <ul class="c8-list">
+        <li>Cut hours of weekly admin to minutes</li>
+        <li>Automate social media without lifting a finger</li>
+        <li>Generate quotes and proposals in seconds</li>
+        <li>Never let an enquiry fall through the cracks</li>
+      </ul>
+    </div>
+    <div class="c8-col">
+      <div class="c8-col-label">Sporting Clubs &amp; Programs</div>
+      <h3>You're sitting on more data than you have time for.</h3>
+      <p>From community clubs to elite programs — we help sporting organisations cut the noise and get more from what they already have.</p>
+      <ul class="c8-list">
+        <li>Automate member comms and match-day content</li>
+        <li>Generate athlete reports in a fraction of the time</li>
+        <li>AI-assisted grant writing</li>
+        <li>Cut committee admin so volunteers focus on the club</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="c8-meta">
+    <div>
+      <div class="meta-label">Colour Palette</div>
+      <div class="c8-swatches">
+        <div class="c8-swatch" style="background:#F3EFE8;border:1px solid #E2DDD5"></div>
+        <div class="c8-swatch" style="background:#EDE8DF"></div>
+        <div class="c8-swatch" style="background:#C8BFB0"></div>
+        <div class="c8-swatch" style="background:#B5A898"></div>
+        <div class="c8-swatch" style="background:#8A7D72"></div>
+        <div class="c8-swatch" style="background:#2C2522"></div>
+        <div class="c8-swatch" style="background:#5B7FA6"></div>
+        <div class="c8-swatch" style="background:#A5C0D8"></div>
+      </div>
+      <div class="meta-label">Accent</div>
+      <div style="height:3px;width:160px;background:linear-gradient(90deg,#5B7FA6,#A5C0D8);border-radius:2px;margin-top:0.5rem;"></div>
+      <div style="font-size:0.7rem;color:#B5A898;margin-top:0.5rem;font-family:'Outfit',sans-serif;">Slate Blue — #5B7FA6 — used as a subtle counterpoint</div>
+    </div>
+    <div>
+      <div class="meta-label">Typography</div>
+      <div class="c8-ts-h">Cormorant Garant</div>
+      <div class="c8-ts-note">Headings — 300 italic · optical elegance at large scale</div>
+      <div class="c8-ts-body">Outfit — Clean geometric body that doesn't compete with the drama of the display serif. Labels stay restrained and tracked.</div>
+      <div class="c8-ts-note">Body — Outfit 400 · 1.9 leading · generous spacing</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 09 — NORDIC
+     Cool light blue · Navy + Blue · Space Grotesk + Inter
+     Stripe · Notion · Intercom
+═══════════════════════════════════════ -->
+<div class="concept c9" id="c9">
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 09</span>
+    <span class="concept-name">Nordic</span>
+    <span class="concept-inspo">Inspired by: Stripe, Notion, Intercom — clean, trustworthy, professional cool</span>
+  </div>
+
+  <div class="c9-hero">
+    <div class="c9-blob-1"></div>
+    <div class="c9-blob-2"></div>
+    <div class="c9-lines"></div>
+    <div class="c9-content">
+      <div class="c9-tag">
+        <span class="c9-tag-pill">New</span>
+        AI Advisory for Australian organisations
+      </div>
+      <h1 class="c9-h1">
+        Stop doing it<br>the <span class="blue">hard way.</span>
+      </h1>
+      <p class="c9-sub">
+        If you're spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter.
+      </p>
+      <div class="c9-btns">
+        <a href="#" class="c9-btn-p">Book a Free Call →</a>
+        <a href="#" class="c9-btn-s">See Who We Help</a>
+      </div>
+      <div class="c9-proof">
+        <div class="c9-proof-cell">
+          <div class="c9-proof-num">5<span class="blue">min</span></div>
+          <div class="c9-proof-label">to list a car &amp; post to all social media</div>
+        </div>
+        <div class="c9-proof-cell">
+          <div class="c9-proof-num">4<span class="blue">+</span></div>
+          <div class="c9-proof-label">platforms updated automatically per listing</div>
+        </div>
+        <div class="c9-proof-cell">
+          <div class="c9-proof-num">100<span class="blue">%</span></div>
+          <div class="c9-proof-label">Australian focused, serving clients nationally</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c9-cards">
+    <div class="c9-card">
+      <div class="c9-card-num">01 / QUICK WIN</div>
+      <h3>One problem. Solved properly.</h3>
+      <p>Defined scope agreed upfront. Delivered in 2–4 weeks. You own everything we build.</p>
+      <a href="#" class="c9-card-link">Learn more →</a>
+    </div>
+    <div class="c9-card">
+      <div class="c9-card-num">02 / ONGOING PARTNER</div>
+      <h3>Your embedded AI thinking partner.</h3>
+      <p>Monthly strategy, priority support, continuous improvement. Cancel anytime — no lock-in.</p>
+      <a href="#" class="c9-card-link">Learn more →</a>
+    </div>
+    <div class="c9-card">
+      <div class="c9-card-num">03 / FULL BUILD</div>
+      <h3>End-to-end. Done for you.</h3>
+      <p>Full workflow mapping, custom build, team training, and 90-day post-handover support.</p>
+      <a href="#" class="c9-card-link">Learn more →</a>
+    </div>
+  </div>
+
+  <div class="c9-meta">
+    <div>
+      <div class="meta-label">Colour Palette</div>
+      <div class="c9-swatches">
+        <div class="c9-swatch" style="background:#F0F5FF;border:1px solid #DDE5F5"></div>
+        <div class="c9-swatch" style="background:#FFFFFF;border:1px solid #DDE5F5"></div>
+        <div class="c9-swatch" style="background:#DDE5F5"></div>
+        <div class="c9-swatch" style="background:#94A3B8"></div>
+        <div class="c9-swatch" style="background:#64748B"></div>
+        <div class="c9-swatch" style="background:#0F1629"></div>
+        <div class="c9-swatch" style="background:#2563EB"></div>
+        <div class="c9-swatch" style="background:#A5C0F5"></div>
+      </div>
+      <div class="meta-label">Accent</div>
+      <div style="height:3px;width:160px;background:linear-gradient(90deg,#1D4ED8,#2563EB,#A5C0F5);border-radius:6px;margin-top:0.5rem;"></div>
+      <div style="font-size:0.7rem;color:#CBD5E1;margin-top:0.5rem;font-family:'Inter',sans-serif;">Blue — #2563EB — trustworthy, clear, action-oriented</div>
+    </div>
+    <div>
+      <div class="meta-label">Typography</div>
+      <div class="c9-ts-h">Space Grotesk</div>
+      <div class="c9-ts-note">Headings — 800 weight · −0.04em · clean authority</div>
+      <div class="c9-ts-body">Inter — The modern default for clean, credible UI. Well-proven at scale. Excellent number rendering for data-forward layouts.</div>
+      <div class="c9-ts-note">Body — Inter 400/600 · 1.75 leading</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="concepts-footer">
+  <p style="color:#475569;">Cortex Advisory · Design Concepts Vol. 3 · Light Themes · 2026</p>
+  <p style="color:#334155;">Nine concepts total across three volumes — pick one or mix →</p>
+</div>
+
+</body>
+</html>
