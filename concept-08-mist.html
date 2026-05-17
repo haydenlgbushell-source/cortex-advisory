@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cortex Advisory — Concept 08: Mist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN SYSTEM ── */
+:root {
+  --bg:        #F3EFE8;
+  --bg-2:      #EDE8DF;
+  --border:    #C8BFB0;
+  --border-2:  #E2DDD5;
+  --text:      #2C2522;
+  --text-mid:  #8A7D72;
+  --text-light:#B5A898;
+  --muted:     #A89880;
+  --accent:    #5B7FA6;
+  --accent-lt: #A5C0D8;
+  --font-serif:'Cormorant Garant', Georgia, serif;
+  --font-sans: 'Outfit', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(243,239,232,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-2);
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.1rem; font-style: italic; font-weight: 300;
+  color: var(--text); letter-spacing: 0.01em;
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.82rem; font-weight: 400;
+  color: var(--text-mid); text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--text) !important; color: var(--bg) !important;
+  padding: 0.6rem 1.4rem;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--accent) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 10rem 6% 7rem;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-watermark {
+  position: absolute; right: 4%; bottom: 8%;
+  font-family: var(--font-serif);
+  font-size: 18rem; font-weight: 300;
+  color: rgba(44,37,34,0.04);
+  line-height: 1; letter-spacing: -0.05em;
+  pointer-events: none; user-select: none;
+}
+.hero-content { position: relative; max-width: 860px; }
+
+.eyebrow {
+  display: flex; align-items: center; gap: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 3rem;
+}
+.eyebrow-line { width: 40px; height: 1px; background: var(--border); }
+.eyebrow-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 7.5vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin-bottom: 2.25rem;
+}
+h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+
+.hero-sub {
+  font-family: var(--font-sans);
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--text-mid); max-width: 520px;
+  line-height: 1.9; margin-bottom: 3.5rem;
+}
+.hero-sub strong { color: var(--text); font-weight: 600; }
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-block;
+  background: var(--text); color: var(--bg);
+  padding: 1rem 2.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--accent); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--text-mid);
+  font-family: var(--font-sans);
+  font-size: 0.85rem; font-weight: 400;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+.credentials {
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.cred-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 0.5rem;
+}
+.cred-val {
+  font-family: var(--font-serif);
+  font-size: 1.4rem; font-style: italic;
+  font-weight: 300; color: var(--text); line-height: 1.2;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.25rem; font-weight: 500;
+}
+
+/* ── WHO WE HELP ── */
+.who {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+}
+.who-col { padding: 5rem 6%; }
+.who-col + .who-col { border-left: 1px solid var(--border); background: var(--bg-2); }
+.who-col h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 1rem; line-height: 1.25;
+}
+.who-col p {
+  font-family: var(--font-sans);
+  font-size: 0.9rem; color: var(--text-mid); line-height: 1.85;
+  font-weight: 400; margin-bottom: 2rem;
+}
+.dash-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.dash-list li {
+  font-family: var(--font-sans);
+  font-size: 0.88rem; color: var(--text);
+  line-height: 1.55; padding-left: 1.5rem; position: relative;
+}
+.dash-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* ── SERVICES ── */
+.services { padding: 6rem 6%; border-top: 1px solid var(--border); }
+.services h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 3.5rem;
+  max-width: 520px; line-height: 1.15;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: var(--border);
+}
+.service-card {
+  background: var(--bg);
+  padding: 2.5rem;
+  transition: background 0.2s;
+}
+.service-card:hover { background: var(--bg-2); }
+.service-num {
+  font-family: var(--font-sans);
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 1.75rem;
+}
+.service-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem; font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 0.75rem; line-height: 1.25;
+}
+.service-card p {
+  font-family: var(--font-sans);
+  font-size: 0.875rem; color: var(--text-mid);
+  line-height: 1.8; font-weight: 400;
+}
+.service-tag {
+  display: inline-block;
+  margin-top: 2rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); border-bottom: 1px solid var(--accent-lt);
+  padding-bottom: 2px;
+}
+
+/* ── PROCESS ── */
+.process { padding: 6rem 6%; border-top: 1px solid var(--border); background: var(--bg-2); }
+.process h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 4rem;
+  line-height: 1.15;
+}
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; }
+.step-num {
+  font-family: var(--font-serif);
+  font-size: 3rem; font-weight: 300; font-style: italic;
+  color: var(--border); line-height: 1; margin-bottom: 1.25rem;
+}
+.step h3 {
+  font-family: var(--font-sans);
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--text); margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.step p {
+  font-family: var(--font-sans);
+  font-size: 0.82rem; color: var(--text-mid);
+  line-height: 1.75;
+}
+
+/* ── CASE STUDY ── */
+.case-study { padding: 6rem 6%; border-top: 1px solid var(--border); }
+.cs-header { max-width: 700px; margin-bottom: 4rem; }
+.cs-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 1.25rem; line-height: 1.15;
+}
+.cs-header p {
+  font-family: var(--font-sans);
+  font-size: 0.95rem; color: var(--text-mid); line-height: 1.8;
+}
+.cs-meta {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.cs-meta-item { }
+.cs-meta-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 0.35rem;
+}
+.cs-meta-val {
+  font-family: var(--font-serif);
+  font-size: 1rem; font-style: italic; font-weight: 300;
+  color: var(--text);
+}
+.cs-ba-block { margin-bottom: 3.5rem; }
+.cs-ba-block h3 {
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-mid); margin-bottom: 1.5rem;
+}
+.cs-ba-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+.cs-ba-col { padding: 2rem 2.25rem; background: var(--bg); }
+.cs-ba-col.new { background: var(--bg-2); }
+.cs-ba-col-head {
+  font-family: var(--font-sans);
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem;
+}
+.cs-ba-col.new .cs-ba-col-head { color: var(--accent); }
+.cs-ba-col p, .cs-ba-col li {
+  font-family: var(--font-sans);
+  font-size: 0.875rem; color: var(--text-mid); line-height: 1.8;
+}
+.cs-ba-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.cs-ba-col ul li { padding-left: 1.25rem; position: relative; }
+.cs-ba-col ul li::before { content: '—'; position: absolute; left: 0; color: var(--text-light); }
+.cs-ba-col.new ul li::before { color: var(--accent); }
+.cs-pullquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); line-height: 1.45;
+  border-left: 2px solid var(--accent);
+  padding: 1.5rem 2rem;
+  margin: 3rem 0;
+  background: var(--bg-2);
+}
+.cs-steps { margin: 3.5rem 0; }
+.cs-steps h3 {
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-mid); margin-bottom: 2rem;
+}
+.cs-step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); }
+.cs-step-cell { background: var(--bg); padding: 1.75rem; }
+.cs-step-cell-num {
+  font-family: var(--font-serif);
+  font-size: 1.75rem; font-style: italic; font-weight: 300;
+  color: var(--border); margin-bottom: 0.75rem; line-height: 1;
+}
+.cs-step-cell h4 {
+  font-family: var(--font-sans);
+  font-size: 0.85rem; font-weight: 600; color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.cs-step-cell p {
+  font-family: var(--font-sans);
+  font-size: 0.8rem; color: var(--text-mid); line-height: 1.65;
+}
+.cs-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 3rem; }
+.cs-card { background: var(--bg); padding: 1.75rem; }
+.cs-card h4 {
+  font-family: var(--font-sans);
+  font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem;
+}
+.cs-card p {
+  font-family: var(--font-sans);
+  font-size: 0.8rem; color: var(--text-mid); line-height: 1.65;
+}
+.cs-results { margin-top: 3.5rem; }
+.cs-results h3 {
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-mid); margin-bottom: 2rem;
+}
+.cs-result-bar { margin-bottom: 1.25rem; }
+.cs-result-label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem; font-weight: 500; color: var(--text);
+  margin-bottom: 0.4rem; display: flex; justify-content: space-between;
+}
+.cs-result-label span { color: var(--accent); font-weight: 600; }
+.cs-bar-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.cs-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+.cs-summary {
+  padding: 2.5rem; background: var(--bg-2);
+  border: 1px solid var(--border);
+  margin-top: 3rem;
+}
+.cs-summary-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem;
+}
+.cs-summary p {
+  font-family: var(--font-sans);
+  font-size: 0.95rem; color: var(--text); line-height: 1.8;
+}
+
+/* ── GET STARTED ── */
+.start { padding: 7rem 6%; border-top: 1px solid var(--border); background: var(--bg-2); }
+.start-inner { max-width: 680px; }
+.start h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 1.5rem; line-height: 1.1;
+}
+.start p {
+  font-family: var(--font-sans);
+  font-size: 1rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 3rem;
+}
+.start-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 3rem; }
+.start-card { background: var(--bg); padding: 2rem; cursor: pointer; transition: background 0.2s; }
+.start-card:hover { background: var(--bg-2); }
+.start-card-num {
+  font-family: var(--font-sans);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem;
+}
+.start-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem; font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 0.5rem; line-height: 1.2;
+}
+.start-card p {
+  font-family: var(--font-sans);
+  font-size: 0.8rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0;
+}
+
+/* ── CONTACT ── */
+.contact { padding: 6rem 6%; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+.contact-left h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-style: italic; font-weight: 300;
+  color: var(--text); margin-bottom: 1.25rem; line-height: 1.2;
+}
+.contact-left p {
+  font-family: var(--font-sans);
+  font-size: 0.9rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 2.5rem;
+}
+.contact-detail {
+  display: flex; flex-direction: column; gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+.contact-detail-item { }
+.cd-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 0.25rem;
+}
+.cd-val {
+  font-family: var(--font-sans);
+  font-size: 0.9rem; color: var(--text);
+}
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%; padding: 0.875rem 1rem;
+  font-family: var(--font-sans); font-size: 0.9rem; color: var(--text);
+  background: var(--bg); border: 1px solid var(--border);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--accent); }
+.form-field textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  display: inline-block;
+  background: var(--text); color: var(--bg);
+  padding: 1rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+  border: none; cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.form-submit:hover { background: var(--accent); }
+.form-note {
+  font-family: var(--font-sans);
+  font-size: 0.75rem; color: var(--text-light); line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 6%;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1rem; font-style: italic; font-weight: 300;
+  color: var(--text);
+}
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a {
+  font-family: var(--font-sans);
+  font-size: 0.78rem; color: var(--text-light); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+.footer-legal {
+  font-family: var(--font-sans);
+  font-size: 0.72rem; color: var(--text-light);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .who, .contact { grid-template-columns: 1fr; }
+  .who-col + .who-col { border-left: none; border-top: 1px solid var(--border); }
+  .services-grid, .steps { grid-template-columns: 1fr 1fr; }
+  .start-cards { grid-template-columns: 1fr 1fr; }
+  .cs-step-grid, .cs-cards { grid-template-columns: 1fr 1fr; }
+  .credentials { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  nav { padding: 1.25rem 5%; }
+  .nav-links { display: none; }
+  .hero, .who-col, .services, .process, .case-study, .start, .contact { padding-left: 5%; padding-right: 5%; }
+  h1 { font-size: 3rem; }
+  .services-grid, .steps, .start-cards, .cs-step-grid, .cs-cards, .cs-ba-cols { grid-template-columns: 1fr; }
+  .credentials { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-watermark { font-size: 8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Cortex Advisory</div>
+  <div class="nav-links">
+    <a href="#who">Who We Help</a>
+    <a href="#services">Services</a>
+    <a href="#process">How It Works</a>
+    <a href="#case-study">Case Study</a>
+    <a href="#contact" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-watermark">CA</div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-dot"></div>
+      AI Advisory &nbsp;·&nbsp; Australia
+    </div>
+    <h1>
+      Stop doing it<br>the <em>hard way.</em>
+    </h1>
+    <p class="hero-sub">
+      If you're spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter. No jargon. Just results.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book a Free Call</a>
+      <a href="#who" class="btn-secondary">See Who We Help →</a>
+    </div>
+    <div class="credentials">
+      <div>
+        <div class="cred-label">Engagement</div>
+        <div class="cred-val">Quick Win</div>
+      </div>
+      <div>
+        <div class="cred-label">Model</div>
+        <div class="cred-val">Monthly</div>
+      </div>
+      <div>
+        <div class="cred-label">Scale</div>
+        <div class="cred-val">Full Build</div>
+      </div>
+      <div>
+        <div class="cred-label">Based</div>
+        <div class="cred-val">Australia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHO WE HELP -->
+<section class="who" id="who">
+  <div class="who-col">
+    <div class="section-label">Small &amp; Medium Business</div>
+    <h2>Running a business is hard enough without doing it manually.</h2>
+    <p>Too much of your day is eaten up by repetitive tasks and admin that should handle itself. We build practical AI tools that give you that time back.</p>
+    <ul class="dash-list">
+      <li>Cut hours of weekly admin to minutes</li>
+      <li>Automate social media without lifting a finger</li>
+      <li>Generate quotes and proposals in seconds</li>
+      <li>Never let an enquiry fall through the cracks</li>
+      <li>Consistent, professional content across every channel</li>
+      <li>AI-powered reporting without spreadsheet hell</li>
+    </ul>
+  </div>
+  <div class="who-col">
+    <div class="section-label">Sporting Clubs &amp; Programs</div>
+    <h2>You're sitting on more data than you have time for.</h2>
+    <p>From community clubs to elite programs — we help sporting organisations cut the noise and get more from what they already have.</p>
+    <ul class="dash-list">
+      <li>Automate member comms and match-day content</li>
+      <li>Generate athlete reports in a fraction of the time</li>
+      <li>AI-assisted grant writing</li>
+      <li>Cut committee admin so volunteers focus on the club</li>
+      <li>Streamlined registration and onboarding flows</li>
+      <li>Performance insights without the analyst overhead</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">How We Engage</div>
+  <h2>Three ways to work with us.</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01 / Quick Win</div>
+      <h3>One problem. Solved properly.</h3>
+      <p>You have one clear bottleneck — we scope it, build it, and hand it over. Defined deliverable, fixed scope, fast turnaround. No ongoing commitment needed.</p>
+      <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-light);">Best for: first engagement, isolated fix, proving ROI fast.</p>
+      <span class="service-tag">2–4 weeks</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02 / Ongoing Partner</div>
+      <h3>Your embedded AI thinking partner.</h3>
+      <p>Monthly strategy, priority support, and continuous improvement as your operation grows. We learn your business and keep building on it.</p>
+      <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-light);">Best for: businesses ready to systematically improve month by month.</p>
+      <span class="service-tag">Monthly · Cancel anytime</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03 / Full Build</div>
+      <h3>End-to-end. Done for you.</h3>
+      <p>We map your entire operation, identify every automation opportunity, build the full system, train your team, and stay on for 90 days post-handover.</p>
+      <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-light);">Best for: established operations ready for a step-change in efficiency.</p>
+      <span class="service-tag">8–12 weeks</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label">How It Works</div>
+  <h2>From first call to<br>running on its own.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Discovery Call</h3>
+      <p>30 minutes. We listen to how your business actually runs — not how it's supposed to run. No agenda, no pitch.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Workflow Audit</h3>
+      <p>We map where time is being lost, where errors creep in, and where AI can step in. A clear picture of what to fix first.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Build &amp; Test</h3>
+      <p>We build it. You test it with real work. We refine until it's right. Nothing ships until you're happy.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Hand Over &amp; Support</h3>
+      <p>Full documentation, team walkthrough, and ongoing support. You own everything — no lock-in, no subscriptions to us.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- CASE STUDY -->
+<section class="case-study" id="case-study">
+  <div class="cs-header">
+    <div class="section-label">Case Study</div>
+    <h2>MB Auto Collective:<br>From manual to<br><em>automated.</em></h2>
+    <p>A boutique used car dealership spending 3–4 hours per listing on photography processing, ad writing, and social media publishing. Every car listed manually, every platform updated by hand.</p>
+  </div>
+
+  <div class="cs-meta">
+    <div class="cs-meta-item">
+      <div class="cs-meta-label">Client</div>
+      <div class="cs-meta-val">MB Auto Collective</div>
+    </div>
+    <div class="cs-meta-item">
+      <div class="cs-meta-label">Sector</div>
+      <div class="cs-meta-val">Automotive Retail</div>
+    </div>
+    <div class="cs-meta-item">
+      <div class="cs-meta-label">Engagement</div>
+      <div class="cs-meta-val">Quick Win</div>
+    </div>
+    <div class="cs-meta-item">
+      <div class="cs-meta-label">Outcome</div>
+      <div class="cs-meta-val">5 min per listing</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Problem -->
+  <div class="cs-ba-block">
+    <h3>The Problem — Before</h3>
+    <div class="cs-ba-cols">
+      <div class="cs-ba-col old">
+        <div class="cs-ba-col-head">Before</div>
+        <ul>
+          <li>3–4 hours to list a single car</li>
+          <li>Photos processed one by one in separate apps</li>
+          <li>Ad copy written from scratch every time</li>
+          <li>Each platform — Carsales, Facebook, Instagram — updated manually</li>
+          <li>Inconsistent descriptions across listings</li>
+          <li>Owner doing all of it personally, every time</li>
+        </ul>
+      </div>
+      <div class="cs-ba-col new">
+        <div class="cs-ba-col-head">After</div>
+        <ul>
+          <li>Under 5 minutes from photos to published</li>
+          <li>Batch photo processing with automatic background removal</li>
+          <li>AI-generated copy from a single prompt</li>
+          <li>One trigger publishes to all platforms simultaneously</li>
+          <li>Consistent, on-brand descriptions every time</li>
+          <li>Owner has 15+ hours back every week</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <blockquote class="cs-pullquote">
+    "The old process wasn't just slow — it was a ceiling on how many cars we could move. Now that ceiling is gone."
+  </blockquote>
+
+  <!-- Section 2: Workflow -->
+  <div class="cs-steps">
+    <h3>The New Workflow — Step by Step</h3>
+    <div class="cs-step-grid">
+      <div class="cs-step-cell">
+        <div class="cs-step-cell-num">01</div>
+        <h4>Photograph</h4>
+        <p>Standard shoot on phone. Photos dropped into a shared folder. Nothing else required from the owner.</p>
+      </div>
+      <div class="cs-step-cell">
+        <div class="cs-step-cell-num">02</div>
+        <h4>Process</h4>
+        <p>Automation detects new photos, removes backgrounds, applies consistent branding overlay, exports platform-ready sizes.</p>
+      </div>
+      <div class="cs-step-cell">
+        <div class="cs-step-cell-num">03</div>
+        <h4>Write</h4>
+        <p>AI generates the listing copy — headline, description, key features — in the dealership's voice from vehicle details.</p>
+      </div>
+      <div class="cs-step-cell">
+        <div class="cs-step-cell-num">04</div>
+        <h4>Publish</h4>
+        <p>One confirmation sends to Carsales, Facebook Marketplace, Instagram, and the website. Done.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Tools -->
+  <div class="cs-ba-block">
+    <h3>Tools Built — Tech Stack</h3>
+    <div class="cs-cards">
+      <div class="cs-card">
+        <h4>Photo Pipeline</h4>
+        <p>Zapier + Remove.bg + Canva API. Auto-processes every photo dropped in the folder — no manual steps.</p>
+      </div>
+      <div class="cs-card">
+        <h4>Copy Engine</h4>
+        <p>GPT-4 prompt trained on existing listings. Outputs on-brand descriptions that need zero editing.</p>
+      </div>
+      <div class="cs-card">
+        <h4>Publishing Hub</h4>
+        <p>Central dashboard pushes to all platforms simultaneously. Single source of truth for all active listings.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Challenges -->
+  <div class="cs-ba-block">
+    <h3>Challenges Overcome</h3>
+    <div class="cs-ba-cols">
+      <div class="cs-ba-col old">
+        <div class="cs-ba-col-head">Challenge</div>
+        <ul>
+          <li>Inconsistent photo quality and angles</li>
+          <li>Platform API limitations (Facebook, Carsales)</li>
+          <li>AI copy sounding generic or off-brand</li>
+          <li>Owner resistant to changing a familiar process</li>
+        </ul>
+      </div>
+      <div class="cs-ba-col new">
+        <div class="cs-ba-col-head">Solution</div>
+        <ul>
+          <li>Shot guide created — 8 angles, takes 6 minutes total</li>
+          <li>Hybrid approach: API where available, browser automation where not</li>
+          <li>Prompt engineering using 40+ real listings as training examples</li>
+          <li>Parallel run for 2 weeks — owner saw the time saved first-hand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Results -->
+  <div class="cs-results">
+    <h3>Results — 8 Weeks Post-Launch</h3>
+    <div class="cs-result-bar">
+      <div class="cs-result-label">Time per listing <span>↓ 94% (3.5hrs → 5min)</span></div>
+      <div class="cs-bar-track"><div class="cs-bar-fill" style="width:94%"></div></div>
+    </div>
+    <div class="cs-result-bar">
+      <div class="cs-result-label">Listing consistency <span>↑ 100% on-brand</span></div>
+      <div class="cs-bar-track"><div class="cs-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cs-result-bar">
+      <div class="cs-result-label">Weekly hours recovered <span>15+ hrs/week</span></div>
+      <div class="cs-bar-track"><div class="cs-bar-fill" style="width:78%"></div></div>
+    </div>
+    <div class="cs-result-bar">
+      <div class="cs-result-label">Platform coverage per listing <span>4 platforms simultaneously</span></div>
+      <div class="cs-bar-track"><div class="cs-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- Section 6: Summary -->
+  <div class="cs-summary">
+    <div class="cs-summary-label">The Bottom Line</div>
+    <p>MB Auto Collective went from a process that physically couldn't scale — the owner doing everything manually — to a system that runs itself. The owner's time moved from production work to sales and customer relationships. The build took three weeks. The ROI was visible in the first week of use.</p>
+  </div>
+</section>
+
+
+<!-- GET STARTED -->
+<section class="start" id="start">
+  <div class="start-inner">
+    <div class="section-label">Get Started</div>
+    <h2>Three ways in.<br>All of them<br><em>risk free.</em></h2>
+    <p>No long-term contracts, no upfront fees before we've shown you anything. Start with a conversation and go from there.</p>
+    <div class="start-cards">
+      <div class="start-card">
+        <div class="start-card-num">01</div>
+        <h3>Quick Win</h3>
+        <p>One problem, defined scope, fast delivery. The lowest commitment way to see what we can do.</p>
+      </div>
+      <div class="start-card">
+        <div class="start-card-num">02</div>
+        <h3>Monthly Partner</h3>
+        <p>Ongoing improvement with an embedded advisor. Month-to-month, cancel anytime.</p>
+      </div>
+      <div class="start-card">
+        <div class="start-card-num">03</div>
+        <h3>Full Build</h3>
+        <p>End-to-end system design and delivery. Best for operations ready for a step change.</p>
+      </div>
+    </div>
+    <a href="#contact" class="btn-primary">Book a Free Discovery Call</a>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <div class="section-label">Contact</div>
+    <h2>Let's talk about what's slowing you down.</h2>
+    <p>A 30-minute call is enough for us to understand your situation and tell you honestly whether we can help — and how.</p>
+    <div class="contact-detail">
+      <div class="contact-detail-item">
+        <div class="cd-label">Email</div>
+        <div class="cd-val">hello@cortexadvisory.com.au</div>
+      </div>
+      <div class="contact-detail-item">
+        <div class="cd-label">Based</div>
+        <div class="cd-val">Australia · Remote-first</div>
+      </div>
+      <div class="contact-detail-item">
+        <div class="cd-label">Response</div>
+        <div class="cd-val">Within one business day</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <form class="contact-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name">
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="org">Organisation</label>
+        <input type="text" id="org" placeholder="Business or club name">
+      </div>
+      <div class="form-field">
+        <label for="type">Type</label>
+        <select id="type">
+          <option value="">Select one</option>
+          <option>Small / medium business</option>
+          <option>Sporting club</option>
+          <option>Elite sports program</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">What's the main problem you want to solve?</label>
+        <textarea id="message" placeholder="Describe in plain English — no tech knowledge needed"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <p class="form-note">We respond within one business day. No sales calls, no pitch decks — just a real conversation.</p>
+    </form>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Cortex Advisory</div>
+  <div class="footer-links">
+    <a href="#who">Who We Help</a>
+    <a href="#services">Services</a>
+    <a href="#case-study">Case Study</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 Cortex Advisory · Australia</div>
+</footer>
+
+</body>
+</html>
