@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cortex Advisory — Design Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: #0f0f0f; color: #fff; font-family: 'Inter', sans-serif; }
+
+/* ── INTRO HEADER ── */
+.intro {
+  padding: 5rem 6% 4rem;
+  border-bottom: 1px solid #222;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.intro-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666;
+  font-family: 'Inter', sans-serif;
+}
+.intro h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.intro p {
+  color: #666;
+  font-size: 1rem;
+  max-width: 560px;
+  line-height: 1.7;
+}
+.concept-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.concept-nav a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.cn-1 { background: #8B5CF6; color: #fff; }
+.cn-1:hover { background: #7C3AED; }
+.cn-2 { background: #CC5500; color: #fff; }
+.cn-2:hover { background: #b34a00; }
+.cn-3 { background: #0EA5E9; color: #fff; }
+.cn-3:hover { background: #0284C7; }
+
+/* ── CONCEPT WRAPPER ── */
+.concept { overflow: hidden; }
+.concept-label-bar {
+  padding: 2rem 6%;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.concept-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.concept-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.concept-inspo {
+  font-size: 0.78rem;
+  opacity: 0.5;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════
+   CONCEPT 1 — PHANTOM
+   Inspired by: Linear, Vercel, Resend
+   Pure black · Violet accent · Space Grotesk
+═══════════════════════════════════════════ */
+
+.c1 { background: #000000; }
+.c1 .concept-label-bar { border-color: #1a1a1a; color: #fff; }
+
+.c1-hero {
+  padding: 7rem 6% 6rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.c1-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(139,92,246,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.c1-glow {
+  position: absolute;
+  top: -20%; left: 30%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.c1-content { position: relative; max-width: 820px; }
+.c1-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8B5CF6;
+  margin-bottom: 2.5rem;
+}
+.c1-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #8B5CF6; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+.c1-h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin-bottom: 1.75rem;
+}
+.c1-h1 .accent { color: #8B5CF6; }
+.c1-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #71717A;
+  max-width: 520px;
+  line-height: 1.75;
+  margin-bottom: 3rem;
+}
+.c1-sub strong { color: #A1A1AA; font-weight: 400; }
+.c1-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.c1-btn-p {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #8B5CF6;
+  color: #fff;
+  padding: 0.8rem 1.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.c1-btn-p:hover { background: #7C3AED; }
+.c1-btn-s {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent;
+  border: 1px solid #27272A;
+  color: #A1A1AA;
+  padding: 0.8rem 1.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.c1-btn-s:hover { border-color: #8B5CF6; color: #fff; }
+
+/* C1 stat bar */
+.c1-bar {
+  margin-top: 5rem;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  max-width: 600px;
+}
+.c1-stat { padding: 1.5rem 2rem; border-right: 1px solid #1a1a1a; }
+.c1-stat:last-child { border-right: none; }
+.c1-stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+.c1-stat-num span { color: #8B5CF6; }
+.c1-stat-label { font-size: 0.75rem; color: #3F3F46; font-weight: 400; line-height: 1.4; }
+
+/* C1 palette + typography */
+.c1-meta { padding: 3rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; background: #000; border-top: 1px solid #111; }
+.meta-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #3F3F46; margin-bottom: 1.25rem; }
+.palette { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.swatch { width: 44px; height: 44px; border-radius: 4px; position: relative; }
+.swatch::after { content: attr(data-label); position: absolute; top: 52px; left: 50%; transform: translateX(-50%); font-size: 0.58rem; color: #3F3F46; white-space: nowrap; font-family: 'Inter', monospace; }
+.typo-sample { display: flex; flex-direction: column; gap: 0.5rem; }
+.ts-h { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; }
+.ts-sub { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #71717A; font-weight: 300; line-height: 1.6; }
+.ts-label { font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #3F3F46; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem; }
+
+/* C1 feature cards */
+.c1-cards { padding: 3rem 6%; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #1a1a1a; border-top: 1px solid #1a1a1a; }
+.c1-card { background: #000; padding: 2rem; transition: background 0.2s; }
+.c1-card:hover { background: #0A0A0A; }
+.c1-card-icon { font-size: 1.1rem; margin-bottom: 1rem; }
+.c1-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.c1-card p { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #52525B; line-height: 1.7; }
+
+/* ══════════════════════════════════════════
+   CONCEPT 2 — IVORY
+   Inspired by: Framer, Awwwards editorial sites
+   Warm cream · Burnt orange · DM Serif Display
+═══════════════════════════════════════════ */
+
+.c2 { background: #F9F6F1; }
+.c2 .concept-label-bar { border-color: #E5DED4; color: #111; }
+.c2 .concept-num { color: #111; opacity: 0.35; }
+.c2 .concept-name { color: #111; }
+.c2 .concept-inspo { color: #111; opacity: 0.4; }
+
+.c2-hero {
+  padding: 7rem 6% 6rem;
+  background: #F9F6F1;
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.c2-texture {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F9F6F1'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23E8E0D4' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+.c2-blob {
+  position: absolute;
+  top: 5%; right: 5%;
+  width: 480px; height: 480px;
+  background: radial-gradient(ellipse at center, rgba(204,85,0,0.06) 0%, transparent 70%);
+}
+.c2-content { position: relative; max-width: 900px; }
+.c2-tag {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #CC5500;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(204,85,0,0.3);
+  padding-bottom: 0.4rem;
+}
+.c2-h1 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #0F0F0F;
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+.c2-h1 em { font-style: italic; color: #CC5500; }
+.c2-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #6B6560;
+  max-width: 520px;
+  line-height: 1.85;
+  margin-bottom: 3rem;
+}
+.c2-sub strong { color: #2D2926; font-weight: 500; }
+.c2-btns { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.c2-btn-p {
+  display: inline-block;
+  background: #0F0F0F;
+  color: #F9F6F1;
+  padding: 0.9rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.c2-btn-p:hover { background: #CC5500; }
+.c2-btn-s {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: #6B6560;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.c2-btn-s:hover { color: #CC5500; }
+.c2-btn-s::after { content: '→'; transition: transform 0.2s; }
+.c2-btn-s:hover::after { transform: translateX(3px); }
+
+/* C2 editorial strip */
+.c2-strip {
+  margin-top: 5rem;
+  border-top: 1px solid #D4CBC0;
+  padding-top: 2.5rem;
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+.c2-strip-item { }
+.c2-strip-label { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: #B0A898; margin-bottom: 0.5rem; }
+.c2-strip-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #0F0F0F;
+}
+
+/* C2 palette + type meta */
+.c2-meta { padding: 3rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; background: #F9F6F1; border-top: 1px solid #E5DED4; }
+.c2 .meta-title { color: #B0A898; }
+.c2-ts-h { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-style: italic; color: #0F0F0F; }
+.c2-ts-sub { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: #6B6560; font-weight: 300; line-height: 1.7; }
+.c2-ts-label { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; color: #B0A898; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem; }
+
+/* C2 panel layout */
+.c2-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid #E5DED4; }
+.c2-panel { padding: 3rem 6%; border-right: 1px solid #E5DED4; background: #F9F6F1; }
+.c2-panel:last-child { border-right: none; }
+.c2-panel-tag { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: #CC5500; margin-bottom: 1rem; }
+.c2-panel h3 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #0F0F0F; margin-bottom: 0.75rem; font-style: italic; }
+.c2-panel p { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: #6B6560; line-height: 1.8; font-weight: 300; }
+.c2-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.c2-list li { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: #4A433D; padding-left: 1.2rem; position: relative; line-height: 1.5; }
+.c2-list li::before { content: '—'; position: absolute; left: 0; color: #CC5500; font-size: 0.8rem; }
+
+/* ══════════════════════════════════════════
+   CONCEPT 3 — CARBON
+   Inspired by: Stripe, Clerk, Liveblocks
+   Deep navy · Sky blue gradient · Syne + Jakarta
+═══════════════════════════════════════════ */
+
+.c3 { background: #0C0E14; }
+.c3 .concept-label-bar { border-color: #1E293B; color: #fff; }
+
+.c3-hero {
+  padding: 7rem 6% 6rem;
+  background: #0C0E14;
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.c3-glow-top {
+  position: absolute;
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 350px;
+  background: radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.c3-noise {
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* Floating card */
+.c3-float-card {
+  position: absolute;
+  right: 6%; top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  background: linear-gradient(135deg, #131720 0%, #0F1219 100%);
+  border: 1px solid #1E293B;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.05);
+}
+.c3-card-header { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #334155; margin-bottom: 1.25rem; }
+.c3-metric { margin-bottom: 1rem; }
+.c3-metric-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; color: #475569; margin-bottom: 0.25rem; }
+.c3-metric-val { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: #F1F5F9; letter-spacing: -0.02em; }
+.c3-metric-val .pos { color: #0EA5E9; }
+.c3-bar-wrap { margin-top: 0.5rem; }
+.c3-bar-track { background: #1E293B; border-radius: 99px; height: 4px; overflow: hidden; margin-bottom: 0.4rem; }
+.c3-bar-fill { height: 4px; border-radius: 99px; background: linear-gradient(90deg, #0EA5E9, #38BDF8); }
+.c3-bar-meta { display: flex; justify-content: space-between; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.65rem; color: #334155; }
+.c3-divider { height: 1px; background: #1E293B; margin: 1rem 0; }
+.c3-tag-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.c3-pill { font-size: 0.65rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; padding: 0.2rem 0.6rem; border-radius: 99px; }
+.c3-pill-a { background: rgba(14,165,233,0.12); color: #38BDF8; }
+.c3-pill-b { background: rgba(99,102,241,0.1); color: #A5B4FC; }
+.c3-pill-c { background: rgba(16,185,129,0.1); color: #6EE7B7; }
+
+.c3-content { position: relative; max-width: 680px; }
+.c3-tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.c3-tag-inner {
+  background: linear-gradient(90deg, #0EA5E9, #38BDF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.c3-tag-line { width: 24px; height: 1px; background: linear-gradient(90deg, #0EA5E9, transparent); }
+
+.c3-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #F1F5F9;
+  margin-bottom: 1.5rem;
+}
+.c3-h1 .grad {
+  background: linear-gradient(135deg, #0EA5E9 0%, #38BDF8 50%, #7DD3FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.c3-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #64748B;
+  max-width: 500px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.c3-sub strong { color: #94A3B8; font-weight: 500; }
+.c3-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.c3-btn-p {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, #0EA5E9, #38BDF8);
+  color: #fff;
+  padding: 0.85rem 1.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(14,165,233,0.2);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.c3-btn-p:hover { box-shadow: 0 0 30px rgba(14,165,233,0.35); transform: translateY(-1px); }
+.c3-btn-s {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid #1E293B;
+  color: #94A3B8;
+  padding: 0.85rem 1.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.c3-btn-s:hover { border-color: #0EA5E9; color: #F1F5F9; }
+
+/* C3 palette + type meta */
+.c3-meta { padding: 3rem 6%; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; background: #0C0E14; border-top: 1px solid #1E293B; }
+.c3 .meta-title { color: #334155; }
+.c3-ts-h { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(135deg, #0EA5E9, #38BDF8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.c3-ts-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; color: #475569; font-weight: 300; line-height: 1.7; }
+.c3-ts-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.65rem; color: #334155; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem; }
+
+/* C3 grid cards */
+.c3-grid { padding: 0 6% 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #1E293B; border-top: 1px solid #1E293B; margin-top: 0; }
+.c3-gcard {
+  background: #0C0E14;
+  padding: 2rem;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.c3-gcard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14,165,233,0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.c3-gcard:hover { background: #0F1219; }
+.c3-gcard:hover::before { opacity: 1; }
+.c3-gcard-num { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #1E293B; margin-bottom: 1rem; }
+.c3-gcard h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: #E2E8F0; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+.c3-gcard p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; color: #475569; line-height: 1.7; font-weight: 300; }
+
+/* ── FOOTER ── */
+.concepts-footer {
+  padding: 3rem 6%;
+  background: #0a0a0a;
+  border-top: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.concepts-footer p { font-size: 0.78rem; color: #3F3F46; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .c1-meta, .c2-meta, .c3-meta { grid-template-columns: 1fr; }
+  .c1-cards, .c2-panels, .c3-grid { grid-template-columns: 1fr; }
+  .c3-float-card { display: none; }
+  .c1-bar { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .intro h1 { font-size: 1.6rem; }
+  .c1-h1, .c2-h1, .c3-h1 { font-size: 2.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-tag">Cortex Advisory · Design Exploration</div>
+  <h1>Three design concepts.</h1>
+  <p>Each takes a different visual direction — pick one to develop further, or mix elements across options. Scroll through to compare, then let us know which direction resonates.</p>
+  <div class="concept-nav">
+    <a href="#c1" class="cn-1">01 — Phantom</a>
+    <a href="#c2" class="cn-2">02 — Ivory</a>
+    <a href="#c3" class="cn-3">03 — Carbon</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 01 — PHANTOM
+     Linear · Vercel · Resend DNA
+═══════════════════════════════════════ -->
+<div class="concept c1" id="c1">
+
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 01</span>
+    <span class="concept-name">Phantom</span>
+    <span class="concept-inspo">Inspired by: Linear, Vercel, Resend — stark precision</span>
+  </div>
+
+  <div class="c1-hero">
+    <div class="c1-grid-bg"></div>
+    <div class="c1-glow"></div>
+    <div class="c1-content">
+      <div class="c1-tag">
+        <span class="c1-tag-dot"></span>
+        AI Advisory · Australia
+      </div>
+      <h1 class="c1-h1">
+        Stop doing it<br>the <span class="accent">hard way.</span>
+      </h1>
+      <p class="c1-sub">
+        If you&rsquo;re spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter.
+      </p>
+      <div class="c1-btns">
+        <a href="#" class="c1-btn-p">Book a Free Call →</a>
+        <a href="#" class="c1-btn-s">See Who We Help</a>
+      </div>
+      <div class="c1-bar">
+        <div class="c1-stat">
+          <div class="c1-stat-num">5<span>min</span></div>
+          <div class="c1-stat-label">to list a car + post to all social media</div>
+        </div>
+        <div class="c1-stat">
+          <div class="c1-stat-num">4<span>+</span></div>
+          <div class="c1-stat-label">platforms updated per car automatically</div>
+        </div>
+        <div class="c1-stat">
+          <div class="c1-stat-num">100<span>%</span></div>
+          <div class="c1-stat-label">Australian focused, serving nationally</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c1-meta">
+    <div>
+      <div class="meta-title">Colour Palette</div>
+      <div class="palette">
+        <div class="swatch" style="background:#000000" data-label="#000000"></div>
+        <div class="swatch" style="background:#0A0A0A; border:1px solid #1a1a1a" data-label="#0A0A0A"></div>
+        <div class="swatch" style="background:#27272A" data-label="#27272A"></div>
+        <div class="swatch" style="background:#3F3F46" data-label="#3F3F46"></div>
+        <div class="swatch" style="background:#71717A" data-label="#71717A"></div>
+        <div class="swatch" style="background:#FFFFFF" data-label="#FFFFFF"></div>
+        <div class="swatch" style="background:#8B5CF6" data-label="#8B5CF6"></div>
+        <div class="swatch" style="background:#C4B5FD" data-label="#C4B5FD"></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <div class="meta-title">Accent</div>
+        <div style="height:4px; width:160px; background:linear-gradient(90deg,#8B5CF6,#C4B5FD); border-radius:2px; margin-top:0.5rem;"></div>
+        <div style="font-size:0.72rem;color:#3F3F46;margin-top:0.5rem;font-family:Inter,monospace;">Violet — #8B5CF6 → #C4B5FD</div>
+      </div>
+    </div>
+    <div>
+      <div class="meta-title">Typography</div>
+      <div class="typo-sample">
+        <div class="ts-h">Space Grotesk</div>
+        <div class="ts-label">Headings — 800 weight · −0.04em tracking</div>
+        <div class="ts-sub" style="margin-top:0.75rem;">Inter — Body text, 300–400 weight, relaxed line-height for readability at small sizes.</div>
+        <div class="ts-label">Body — Inter 300/400 · 1.75 leading</div>
+        <div style="margin-top:1rem; font-family:monospace; font-size:0.75rem; color:#27272A; background:#0A0A0A; padding:0.75rem 1rem; border-radius:4px; line-height:1.8;">
+          font: Space Grotesk 800<br>
+          body: Inter 300/400<br>
+          mono: IBM Plex Mono
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c1-cards">
+    <div class="c1-card">
+      <div class="c1-card-icon">⚡</div>
+      <h3>Quick Win</h3>
+      <p>One problem solved properly — scoped, built, and handed over in 2–4 weeks. Fast, focused, tangible from day one.</p>
+    </div>
+    <div class="c1-card">
+      <div class="c1-card-icon">🔄</div>
+      <h3>Ongoing Partner</h3>
+      <p>Your embedded AI thinking partner on a monthly basis. Cancel anytime — no lock-in contracts.</p>
+    </div>
+    <div class="c1-card">
+      <div class="c1-card-icon">🏗</div>
+      <h3>Full Build</h3>
+      <p>End-to-end. We map your entire operation, identify every high-leverage opportunity, build the full system.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 02 — IVORY
+     Framer · Awwwards Editorial DNA
+═══════════════════════════════════════ -->
+<div class="concept c2" id="c2">
+
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 02</span>
+    <span class="concept-name">Ivory</span>
+    <span class="concept-inspo">Inspired by: Framer, Awwwards editorial — warm luxury, serif drama</span>
+  </div>
+
+  <div class="c2-hero">
+    <div class="c2-texture"></div>
+    <div class="c2-blob"></div>
+    <div class="c2-content">
+      <div class="c2-tag">AI Advisory · Australia</div>
+      <h1 class="c2-h1">
+        Stop doing it<br>the <em>hard way.</em>
+      </h1>
+      <p class="c2-sub">
+        If you&rsquo;re spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps small businesses and sporting clubs use AI to work smarter.
+      </p>
+      <div class="c2-btns">
+        <a href="#" class="c2-btn-p">Book a Free Call</a>
+        <a href="#" class="c2-btn-s">See Who We Help &nbsp;</a>
+      </div>
+      <div class="c2-strip">
+        <div class="c2-strip-item">
+          <div class="c2-strip-label">Engagement Type</div>
+          <div class="c2-strip-val">Quick Win</div>
+        </div>
+        <div class="c2-strip-item">
+          <div class="c2-strip-label">Ongoing Partner</div>
+          <div class="c2-strip-val">Monthly</div>
+        </div>
+        <div class="c2-strip-item">
+          <div class="c2-strip-label">Full Build</div>
+          <div class="c2-strip-val">End-to-end</div>
+        </div>
+        <div class="c2-strip-item">
+          <div class="c2-strip-label">Based</div>
+          <div class="c2-strip-val">Australia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c2-meta">
+    <div>
+      <div class="meta-title">Colour Palette</div>
+      <div class="palette">
+        <div class="swatch" style="background:#F9F6F1; border:1px solid #E5DED4" data-label="#F9F6F1"></div>
+        <div class="swatch" style="background:#EDE7DE; border:1px solid #E5DED4" data-label="#EDE7DE"></div>
+        <div class="swatch" style="background:#D4CBC0" data-label="#D4CBC0"></div>
+        <div class="swatch" style="background:#B0A898" data-label="#B0A898"></div>
+        <div class="swatch" style="background:#6B6560" data-label="#6B6560"></div>
+        <div class="swatch" style="background:#0F0F0F" data-label="#0F0F0F"></div>
+        <div class="swatch" style="background:#CC5500" data-label="#CC5500"></div>
+        <div class="swatch" style="background:#E8733A" data-label="#E8733A"></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <div class="meta-title" style="color:#B0A898">Accent</div>
+        <div style="height:4px; width:160px; background:linear-gradient(90deg,#CC5500,#E8733A); border-radius:2px; margin-top:0.5rem;"></div>
+        <div style="font-size:0.72rem;color:#B0A898;margin-top:0.5rem;font-family:DM Sans,sans-serif;">Burnt Orange — #CC5500 → #E8733A</div>
+      </div>
+    </div>
+    <div>
+      <div class="meta-title" style="color:#B0A898">Typography</div>
+      <div class="typo-sample">
+        <div class="c2-ts-h">DM Serif Display</div>
+        <div class="c2-ts-label">Headings — 400 weight italic · editorial feel</div>
+        <div class="c2-ts-sub" style="margin-top:0.75rem;">DM Sans — Body text, 300–500 weight. Clean and legible, pairs beautifully with the editorial serif headings.</div>
+        <div class="c2-ts-label">Body — DM Sans 300/400 · 1.85 leading</div>
+        <div style="margin-top:1rem; font-family:'DM Sans',sans-serif; font-size:0.75rem; color:#B0A898; background:#EDE7DE; padding:0.75rem 1rem; border-radius:2px; line-height:1.8; color:#6B6560;">
+          font: DM Serif Display italic<br>
+          body: DM Sans 300/500<br>
+          caps: DM Sans 500 tracked
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c2-panels">
+    <div class="c2-panel">
+      <div class="c2-panel-tag">Small &amp; Medium Business</div>
+      <h3>Running a business is hard enough.</h3>
+      <p>Too much of your day is eaten up by repetitive tasks and admin that should handle itself. We build practical AI tools that give you that time back.</p>
+      <ul class="c2-list">
+        <li>Cut hours of weekly admin down to minutes</li>
+        <li>Automate social media — without lifting a finger</li>
+        <li>Generate quotes and proposals in seconds</li>
+        <li>Keep your business active online, automatically</li>
+      </ul>
+    </div>
+    <div class="c2-panel">
+      <div class="c2-panel-tag">Sporting Clubs &amp; Programs</div>
+      <h3>More data than you have time for.</h3>
+      <p>From community clubs to elite programs — you're sitting on more data and doing more admin than you should be. We help you cut the noise.</p>
+      <ul class="c2-list">
+        <li>Automate member comms and match-day content</li>
+        <li>Generate athlete reports in a fraction of the time</li>
+        <li>AI-assisted grant writing</li>
+        <li>Cut committee admin so volunteers focus on the club</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     CONCEPT 03 — CARBON
+     Stripe · Clerk · Liveblocks DNA
+═══════════════════════════════════════ -->
+<div class="concept c3" id="c3">
+
+  <div class="concept-label-bar">
+    <span class="concept-num">Concept 03</span>
+    <span class="concept-name">Carbon</span>
+    <span class="concept-inspo">Inspired by: Stripe, Clerk, Liveblocks — modern SaaS energy</span>
+  </div>
+
+  <div class="c3-hero">
+    <div class="c3-glow-top"></div>
+    <div class="c3-noise"></div>
+
+    <!-- Floating widget -->
+    <div class="c3-float-card">
+      <div class="c3-card-header">MB Auto Collective · Live Dashboard</div>
+      <div class="c3-metric">
+        <div class="c3-metric-label">Time to list &amp; post</div>
+        <div class="c3-metric-val"><span class="pos">5 min</span> <span style="font-size:0.9rem;color:#334155;font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;">↓ from 60min</span></div>
+      </div>
+      <div class="c3-bar-wrap">
+        <div class="c3-bar-track"><div class="c3-bar-fill" style="width:92%"></div></div>
+        <div class="c3-bar-meta"><span>Admin saved this week</span><span style="color:#0EA5E9">92%</span></div>
+      </div>
+      <div class="c3-divider"></div>
+      <div class="c3-metric">
+        <div class="c3-metric-label">Platforms publishing to</div>
+        <div class="c3-metric-val"><span class="pos">4</span></div>
+      </div>
+      <div class="c3-tag-row">
+        <span class="c3-pill c3-pill-a">Instagram</span>
+        <span class="c3-pill c3-pill-b">Facebook</span>
+        <span class="c3-pill c3-pill-a">TikTok</span>
+        <span class="c3-pill c3-pill-c">LinkedIn</span>
+      </div>
+    </div>
+
+    <div class="c3-content">
+      <div class="c3-tag">
+        <div class="c3-tag-line"></div>
+        <span class="c3-tag-inner">AI Advisory · Australia</span>
+      </div>
+      <h1 class="c3-h1">
+        Stop doing it<br>the <span class="grad">hard way.</span>
+      </h1>
+      <p class="c3-sub">
+        If you&rsquo;re spending hours on admin that should run itself — <strong>we can fix that.</strong> Cortex Advisory helps businesses and sporting clubs work smarter with AI.
+      </p>
+      <div class="c3-btns">
+        <a href="#" class="c3-btn-p">Book a Free Call →</a>
+        <a href="#" class="c3-btn-s">See Who We Help</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="c3-meta">
+    <div>
+      <div class="meta-title">Colour Palette</div>
+      <div class="palette">
+        <div class="swatch" style="background:#0C0E14" data-label="#0C0E14"></div>
+        <div class="swatch" style="background:#0F1219" data-label="#0F1219"></div>
+        <div class="swatch" style="background:#131720" data-label="#131720"></div>
+        <div class="swatch" style="background:#1E293B" data-label="#1E293B"></div>
+        <div class="swatch" style="background:#334155" data-label="#334155"></div>
+        <div class="swatch" style="background:#94A3B8" data-label="#94A3B8"></div>
+        <div class="swatch" style="background:#0EA5E9" data-label="#0EA5E9"></div>
+        <div class="swatch" style="background:#38BDF8" data-label="#38BDF8"></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <div class="meta-title">Accent Gradient</div>
+        <div style="height:4px; width:200px; background:linear-gradient(90deg,#0EA5E9,#38BDF8,#7DD3FC); border-radius:2px; margin-top:0.5rem;"></div>
+        <div style="font-size:0.72rem;color:#334155;margin-top:0.5rem;font-family:'Plus Jakarta Sans',sans-serif;">Sky Blue — #0EA5E9 → #7DD3FC</div>
+      </div>
+    </div>
+    <div>
+      <div class="meta-title">Typography</div>
+      <div class="typo-sample">
+        <div class="c3-ts-h">Syne</div>
+        <div class="c3-ts-label">Headings — 800 weight · −0.03em tracking</div>
+        <div class="c3-ts-sub" style="margin-top:0.75rem;">Plus Jakarta Sans — Body text, 300–600 weight. Contemporary geometric, reads well at all sizes with excellent number rendering.</div>
+        <div class="c3-ts-label">Body — Plus Jakarta Sans 300/400 · 1.8 leading</div>
+        <div style="margin-top:1rem; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.75rem; color:#334155; background:#0F1219; padding:0.75rem 1rem; border-radius:4px; line-height:1.8; border:1px solid #1E293B;">
+          font: Syne 800<br>
+          body: Plus Jakarta Sans 300/500<br>
+          data: Syne 700 numeric
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c3-grid">
+    <div class="c3-gcard">
+      <div class="c3-gcard-num">01 / QUICK WIN</div>
+      <h3>One problem. Solved properly.</h3>
+      <p>Scoped, built, and handed over in 2–4 weeks. Fast, focused, tangible from day one. Perfect for testing the value first.</p>
+    </div>
+    <div class="c3-gcard">
+      <div class="c3-gcard-num">02 / ONGOING PARTNER</div>
+      <h3>Your embedded AI thinking partner.</h3>
+      <p>We become part of your team on a monthly basis. Cancel anytime — no lock-in contracts.</p>
+    </div>
+    <div class="c3-gcard">
+      <div class="c3-gcard-num">03 / FULL BUILD</div>
+      <h3>End-to-end. Done for you.</h3>
+      <p>We map your entire operation, identify every high-leverage opportunity, and build the full system.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="concepts-footer">
+  <p>Cortex Advisory · Design Concepts · 2026</p>
+  <p>Select a direction to develop into the full site →</p>
+</div>
+
+</body>
+</html>
